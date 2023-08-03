@@ -1,0 +1,29 @@
+
+#root {
+  text-align: center;
+}
+
+/* Header section */
+
+.headerSection{
+  padding: 15px;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.HeaderOptions{
+  
+  display: flex;
+}
+
+/* landing page */
+
+.backgroundCard{
+  display: flex;
+  height: 35rem;
+  width: 98%;
+  background-image: url('./assets/image/topo.jpg');
+  background-size: cover;
+
+}
