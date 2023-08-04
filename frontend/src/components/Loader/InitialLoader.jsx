@@ -1,11 +1,11 @@
 import React from 'react'
 import Lottie from "lottie-react";
-import myanimation from "../../assets/lottie/animation_lkw6y390.json";
 
-function InitialLoader() {
+
+function InitialLoader(props) {
   return (
     <div className='lottieSection'>
-      <Lottie style={{width:'500px'}} animationData={myanimation} loop={true} />
+      <Lottie style={{width:'500px'}} animationData={props.image} loop={true} />
     </div>
   )
 }

@@ -1,15 +1,17 @@
 import React from 'react'
 import { useState,useEffect } from 'react';
 import { useLottie } from "lottie-react";
-import myanimation from '../assets/lottie/animation_lkw6y390.json'
-import { Navigate,Outlet } from 'react-router-dom';
-import InitialLoader from '../components/Loader/InitialLoader';
+import myanimation from '../../assets/lottie/animation_lkwb37nh.json'
+import { Navigate,Outlet, useNavigate } from 'react-router-dom';
+import InitialLoader from '../../components/Loader/InitialLoader';
 function Loader() {
-
+  
+    const navigate = useNavigate('')
     const [initial,setInitial]=useState(true);
     useEffect(()=>{
         setTimeout(()=>{
-        setInitial(false)
+        setInitial(false);
+        navigate('/')
         },5000)
     },[]);
     return initial?<InitialLoader image={myanimation}/>:<Outlet/>

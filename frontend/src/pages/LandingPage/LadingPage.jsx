@@ -14,7 +14,7 @@ function LadingPage() {
                 <h5>Start meeting new people in your area! If you already have an account, sign in to use Stringed on the web.</h5>
             </div>
             <div className='signInUpbuttonDiv'>
-                  <button className='join' onClick={()=>navigate('/signUp')}>Join</button>
+                  <button className='join' onClick={()=>navigate('/signup')}>Join</button>
                   <button className='SignUp' onClick={()=>navigate('/login')}>Sign In</button>
             </div>
         </div>
