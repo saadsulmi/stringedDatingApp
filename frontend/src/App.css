@@ -3,6 +3,21 @@
   text-align: center;
 }
 
+/* logo */
+.myLogo{
+  width: 150px;
+}
+
+/* lottie player */
+
+.lottieSection{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+
 /* Header section */
 
 .headerSection{
@@ -13,17 +28,75 @@
   justify-content: space-between;
 }
 .HeaderOptions{
-  
   display: flex;
+}
+.HeaderOptions h3:hover{
+  color: rgb(255, 255, 255);
 }
 
 /* landing page */
 
 .backgroundCard{
   display: flex;
-  height: 35rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 33rem;
   width: 98%;
-  background-image: url('./assets/image/topo.jpg');
   background-size: cover;
 
+}
+
+.backgroundCard h1{
+  font-size: 3.5em;
+}
+.backgroundCard h5{
+  margin-top: 5px;
+  font-size: 1em;
+}
+
+.signInUpbuttonDiv{
+  width: 300px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.signInUpbuttonDiv .join{
+  font-weight: bold;
+  font-family: poppins,sans-serif;
+  font-size: 1em;
+  border-radius: 5px;
+  color: black;
+  border: none;
+  background-color: #ffc933;
+  width: 140px;
+  height: 45px;
+}
+.signInUpbuttonDiv .join:hover{
+  background-color: #edba2e;
+}
+.signInUpbuttonDiv .SignUp{
+  font-weight: bold;
+  font-family: poppins,sans-serif;
+  font-size: 1em;
+  color: black;
+  border-radius: 5px;
+  border: solid 0.05em rgb(0, 0, 0);
+  background-color: #ffffff;
+  width: 140px;
+  height: 45px;
+  transition: 0.5s;
+}
+.signInUpbuttonDiv .SignUp:hover{
+  transition: 0.5s;
+  border: none;
+  background-color: #ffc933;
+}
+.signUpSec{
+  display: flex;
+  padding: 250px;
+  flex-direction: column;
+  align-items: center;
 }
