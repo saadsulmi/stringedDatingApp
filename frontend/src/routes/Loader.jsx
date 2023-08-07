@@ -10,7 +10,7 @@ function Loader() {
     useEffect(()=>{
         setTimeout(()=>{
         setInitial(false)
-        },5000)
+        },3500)
     },[]);
     return initial?<InitialLoader image={myanimation}/>:<Outlet/>
 }

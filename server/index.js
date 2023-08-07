@@ -1,15 +1,22 @@
-const express = require('express');
-const app = express();
+import express from "express"
+import connectDB from "./config/mongodb.js";
+
+
 const PORT=8000
-const db=require('./config/mongodb');
-db.then(()=>{
+
+const app = express();
+
+
+connectDB.then(()=>{
     console.log('Database connected succefully');
 })
 
+app.use(express.json());
+app.use(express.urlencoded({extended:false}))
 
 
-const userRoute=require('./route/userRoute')
-app.use('/api',userRoute)
+import userRoute from './route/userRoute.js'
+app.use('/api/user',userRoute)
 
 
 

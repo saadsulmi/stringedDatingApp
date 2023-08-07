@@ -6,9 +6,10 @@ import LadingPage from './pages/LandingPage/LadingPage';
 import Loader from './routes/Loader';
 import NotFound from './pages/404Page/NotFound';
 
+
 const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 const Register = lazy(() => import("./pages/RegisterAccount/Register"));
-
+const MobileLogin = lazy(()=>import('./pages/OTPpage/MobileLogin'))
 function App() {
 
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route element={<Loader/>}> //main Router Loader
           <Route path='/' element={<LadingPage/>} />
           <Route path='/login' element={<LoginPage/>} />
+          <Route path='/mobileLogin' element={<MobileLogin/>} />
           <Route path='/signup' element={<Register/>} />
 
 
