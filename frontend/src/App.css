@@ -27,6 +27,15 @@
   height: 100vh;
 }
 
+.qJTHM{
+  padding: 0;
+  background-color: #edba2e;
+}
+
+.qJTHM iframe{
+  width: 20px;
+  height: 20px;
+}
 
 /* Header section */
 

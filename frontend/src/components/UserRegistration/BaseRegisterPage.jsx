@@ -1,17 +1,36 @@
-import React from 'react'
-import { FaGoogle } from 'react-icons/fa';
-import { Button } from '@mui/material'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import jwt_decode from "jwt-decode"
+import { GoogleLogin } from '@react-oauth/google';
 
 function BaseRegisterPage() {
-    const navigate = useNavigate()
+  
+const navigate=useNavigate();
+
   return (
     <div className='signupBlock'>
       <h3>Welcome! How do you want to get started?</h3>
-      <Button sx={{borderRadius:"25px",border:"none",marginTop:"70px",height:"40px"}} variant="contained" disableElevation>
-        <FaGoogle style={{padding:"0px", marginRight:"10px"}}/>
-        Continue with Google
-      </Button>
+      
+      <GoogleLogin
+
+      type='standard'
+      theme='filled_black'
+      width={100}
+      padding={0}
+      shape='pill'
+      text='signup_with'
+      size='large'
+    
+      useOneTap
+        onSuccess={credentialResponse => {
+          let decoded=jwt_decode(credentialResponse.credential);
+          console.log(decoded);
+          navigate('/register')
+        }}
+        onError={() => {
+          console.log('Login Failed');
+        }}
+      />
 
       <div className='breakSection'>
       <hr />
