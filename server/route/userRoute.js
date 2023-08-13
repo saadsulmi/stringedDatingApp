@@ -1,8 +1,9 @@
 import express from 'express'
 import {sendOtp,checkOtp} from '../utils/twilio.js'
 import userModel from '../domain/model/userModel.js';
-
+import {upload} from '../utils/Multer.js'
 const userRoute=express.Router();
+
 
 import {
   phoneOtp,

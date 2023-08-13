@@ -21,11 +21,13 @@ export const verifyOtp =
   ) =>
   async (req, res) => {
     const { otp, phone } = req.body;
+    console.log(otp,phone);
     try {
       const verificationStatus = await VerifyPhoneOtp(otp, phone, checkOtp);
       if (verificationStatus.status === "approved") {
         const user = await findUserWithPhone(phone, userModel);
         if (!user) {
+          console.log('i am just waiting to send res');
           res.json({
             success: true,
             newUser: true,

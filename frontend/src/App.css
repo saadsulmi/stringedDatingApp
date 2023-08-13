@@ -5,7 +5,7 @@
 
 /* logo */
 .myLogo{
-  width: 150px;
+  width: 120px;
 }
 
 /* contentField */
@@ -27,27 +27,23 @@
   height: 100vh;
 }
 
-.qJTHM{
-  padding: 0;
-  background-color: #edba2e;
-}
 
-.qJTHM iframe{
-  width: 20px;
-  height: 20px;
-}
 
 /* Header section */
 
 .headerSection{
-  padding: 15px;
-  height: 6rem;
+  padding: 10px 40px;
+  height: 5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .HeaderOptions{
+  padding: 10px;
   display: flex;
+}
+.HeaderOptions h3{
+  margin-left: 20px;
 }
 .HeaderOptions h3:hover{
   color: rgb(255, 255, 255);
@@ -55,6 +51,11 @@
 
 /* landing page */
 
+.main{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
 .backgroundCard{
   display: flex;
   flex-direction: column;

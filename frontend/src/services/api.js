@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from './Axios'
 
 const headers ={
     headers : {
@@ -13,12 +13,12 @@ const formDataHeaders = {
     }
 }
 
-export const phoneNumberAPI = (data)=> axios.post("/phone",data);
+export const phoneNumberAPI = (data)=> axios.post("/api/phone",data);
 
-export const OTP_API = (data) => axios.post("/verifyOtp", data);
+export const OTP_API = (data) => axios.post("/api//verifyOtp", data);
 
-export const googleLoginAPI = (data) => axios.post("/googleLogin", data);
+export const googleLoginAPI = (data) => axios.post("/api//googleLogin", data);
 
-export const createAccountAPI = (userData) => axios.post("/createAccount", userData,formDataHeaders);
+export const createAccountAPI = (userData) => axios.post("/api/createAccount", userData,formDataHeaders);
 
-export const userDataApi = () => axios.get("/userData", headers);
+export const userDataApi = () => axios.get("/api//userData", headers);

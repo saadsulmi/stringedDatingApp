@@ -8,7 +8,7 @@ function Login() {
     const navigate = useNavigate()
   return (
     <div className='signupBlock'>
-      <h3>Welcome! How do you want to get Login?</h3>
+      <h3>Welcome! Please create an account !</h3>
       <GoogleLogin
 
         type='standard'
@@ -16,7 +16,7 @@ function Login() {
         width={100}
         padding={0}
         shape='pill'
-        text='signin_with'
+        text='signup_with'
         size='large'
 
         useOneTap
