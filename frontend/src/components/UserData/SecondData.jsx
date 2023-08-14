@@ -421,8 +421,7 @@ function SecondData({
       textAlign: "left", // Left-align text within li elements
     }}
   >
-    <li>Add at least 2 photos to continue</li>
-    <li>Show us that smile please</li>
+    <li>Add Profile Picture and Cover Picture at least</li>
     <li>Avoid Blurry Pictures</li>
     <li>Stay clear of inappropriate content</li>
   </Grid>

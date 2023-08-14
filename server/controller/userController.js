@@ -35,7 +35,7 @@ export const verifyOtp =
           });
         } else {
           const token = await createJwtToken(user, createUserToken);
-          res.json({ success: true, token, redirect: "/Discover" });
+          res.json({ success: true, token, redirect: "/Discover" ,user });
         }
       } else {
         throw new Error("Failed to verify OTP");
@@ -46,24 +46,102 @@ export const verifyOtp =
     }
   };
 
+
+  export const googleLogin =
+  (findUserWithEmail, userModel, createUserToken, createJwtToken) =>
+  async (req, res) => {
+    try {
+      const { email } = req.body;
+      console.log(email,"server side email");
+      const user = await findUserWithEmail(email, userModel);
+      if (!user) {
+        res
+        .status(200)
+        .json({ success: true, redirect: "/createAccount", newUser: true });
+      }else{
+        
+      const token = await createJwtToken(user, createUserToken);
+      res
+        .status(200)
+        .json({ success: true, token, redirect: "/Discover", user: user });
+      }
+    } 
+    catch (error) {
+      console.error(error);
+      res
+        .status(400)
+        .json({ success: false, message: "Failed to login with Google" });
+    }
+  };
+
+
+
 export const userDetails =
     (createNewUser, createJwtToken, userModel, createUserToken,  cloudinary,
     uploadProfilePic,
     uploadCoverPic,
     image,
-    removeFile,req) =>
+    removeFile) =>
     async (req, res) => {
     try {
-        const user = await createNewUser(req.body, userModel,  cloudinary,
+      const user = await createNewUser(req.body, userModel,  cloudinary,
         uploadProfilePic,
         uploadCoverPic,
         image,
         removeFile,req);
         const token = await createJwtToken(user, createUserToken);
-        res
-        .status(200)
+        console.log("i am on server side");
+        res.status(200)
         .json({ success: true, redirect: "/profile", user, token });
     } catch (error) {
         res.status(400).json({ error: "Failed to create user" });
     }
 };
+
+export const userData = (findUserWithId, userModel) => async (req, res) => {
+  try {
+    const user = await findUserWithId(req.user.id, userModel);
+    res.json(user).status(200);
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
+};
+
+export const discoverUsers = (userModel, showUsers) => async (req, res) => {
+  try {
+    console.log("working on server side");
+    const users = await showUsers(req, userModel);
+    console.log(users);
+    res.json(users);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+export const likeUser =
+  (userModel, matchModel, likeUserAndMatch) => async (req, res) => {
+    try {
+      const { User } = req.body;
+      const user = await likeUserAndMatch(
+        req.user.id,
+        User,
+        userModel,
+        matchModel
+      );
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
+
+
+  export const dislikeUser =
+  (userModel, dislikeAUser, matchModel) => async (req, res) => {
+    try {
+      const { User } = req.body;
+      const user = await dislikeAUser(req.user.id, User, userModel, matchModel);
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  };

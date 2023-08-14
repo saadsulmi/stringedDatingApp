@@ -31,7 +31,7 @@ console.log( coverPicREF,
     image1,
     image2,);
 },[])
-    const handleAllSet=()=>{
+    const handleProfile=()=>{
 handleSubmit()
     }
   return (
@@ -271,9 +271,9 @@ handleSubmit()
                   color="warning"
                   variant="outlined"
                 
-                  onClick={handleAllSet}
+                  onClick={handleProfile}
                 >
-                   All set
+                   Create Profile
                 </Button> 
             </Grid>
     </CardContent>

@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Auth_user } from "../../features/users/AuthReducer";
 import Timer from "./Timer";
+import { SetUserData } from "../../features/users/UserReducer";
 import { OTP_API, phoneNumberAPI } from "../../services/api";
 
 function OtpPage() {
@@ -63,17 +64,19 @@ function OtpPage() {
   
           OTP_API(data).then((res) => {
             console.log('waiting for res');
-              setLoading(false);
-              if (res.data.success) {
-                if (res.data.newUser) {
-                  dispatch(SetUser());
-                  navigate(res.data.redirect);
-                } else {
-                  localStorage.setItem(
-                    "authorization.user",
-                    JSON.stringify(res.data.token)
+            console.log(res.data);
+            setLoading(false);
+            if (res.data.success) {
+              if (res.data.newUser) {
+                dispatch(SetUser());
+                navigate(res.data.redirect);
+              } else {
+                localStorage.setItem(
+                  "authorization.user",
+                  JSON.stringify(res.data.token)
                   );
                   dispatch(Auth_user());
+                  
                   navigate(res.data.redirect);
                 }
               } else {

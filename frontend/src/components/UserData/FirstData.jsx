@@ -35,7 +35,7 @@ import Chip from "@mui/joy/Chip";
 function FirstData({
   setUserData,
   userData,
-  validateInputs,
+    validateInputs,
   error,
   loading,
   setStep,
@@ -129,7 +129,7 @@ function FirstData({
             Introduce Yourself
           </Typography>
           <Grid container justifyContent={"center"} spacing={2}>
-      <Grid container xs={9} spacing={2}>
+      <Grid item container xs={9} spacing={2}>
 
             <Grid item  xs={12} sm={6}>
               <TextField
@@ -162,6 +162,7 @@ function FirstData({
                     email: e.target.value,
                   }))
                 }
+                disabled={userData.email?'disable':''}
               />
               {error.email && (
                 <Typography sx={{ color: "red" }}>{error.email}</Typography>
@@ -174,7 +175,7 @@ function FirstData({
                 variant="outlined"
                 value={userData.phone}
                 fullWidth
-                disabled
+                disabled={userData.phone?'disable':''}
               />
               {error.phone && (
                 <Typography sx={{ color: "red" }}>{error.phone}</Typography>
@@ -185,7 +186,7 @@ function FirstData({
         </Grid>
           
 
-          <Grid container xs={9} spacing={2}>
+          <Grid item container xs={9} spacing={2}>
 
           <Grid container item xs={12} sm={12}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -348,7 +349,7 @@ function FirstData({
             </Grid>
 
             <Grid container direction={"column"} item xs={12} sm={12} alignItems={"center"}>
-              <Grid container xs={9}>
+              <Grid item container xs={9}>
               <TextField
                 
                 id="bio"
@@ -427,7 +428,7 @@ function FirstData({
             </Grid>
             </Grid>
           </Grid>
-          <Grid xl={12}> 
+          <Grid item xl={12}> 
           <Button
             color="warning"
             variant="outlined"

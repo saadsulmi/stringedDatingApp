@@ -176,7 +176,6 @@ export default function InitialData() {
         success: false,
         open: true,
     })
-
     return false;
     }
    
@@ -227,9 +226,10 @@ export default function InitialData() {
     formData.append("phone", userData.phone);
     formData.append("Preference", userData.Preference);
     formData.append("realationshipStatus", userData.realationshipStatus);
-    console.log('j');
+    console.log('i am here to post image');
+    
     if (userData.profilePicFile) {
-      console.log('hlo',userData.profilePicFile);
+      console.log('hello',userData.profilePicFile);
       formData.append(
         "profilePic",
         userData.profilePicFile,
@@ -274,9 +274,10 @@ export default function InitialData() {
         );
       }
     }
-
+    console.log(formData);
     createAccountAPI(formData)
       .then((res) => {
+        console.log("finally here to get a response");
         if (res.data.success) {
           setloading(false);
           localStorage.setItem(

@@ -1,6 +1,7 @@
 import express from 'express'
 import {sendOtp,checkOtp} from '../utils/twilio.js'
 import userModel from '../domain/model/userModel.js';
+import matchModel from "../domain/model/matchesModel.js";
 import {upload} from '../utils/Multer.js'
 const userRoute=express.Router();
 
@@ -8,12 +9,22 @@ const userRoute=express.Router();
 import {
   phoneOtp,
   verifyOtp,
-  userDetails
+  userData,
+  userDetails,
+  likeUser,
+  dislikeUser,
+  discoverUsers,
+  googleLogin
 } from "../controller/userController.js";
 
 import {
     findUserWithPhone,
-    createNewUser
+    createNewUser,
+    findUserWithId,
+    likeUserAndMatch,
+    dislikeAUser,
+    showUsers,
+    findUserWithEmail
 } from '../interactors/UserInteractor.js'
 
 import{
@@ -43,26 +54,39 @@ verifyOtp(
 );
 
 
+userRoute.post( "/googleLogin",googleLogin(findUserWithEmail, userModel, createUserToken, createJwtToken));
+
+
 userRoute.post(
-    "/createAccount",
-    upload.fields([
-      { name: "profilePic", maxCount: 1 },
-      { name: "coverPic", maxCount: 1 },
-      { name: "image0", maxCount: 1 },
-      { name: "image1", maxCount: 1 },
-      { name: "image2", maxCount: 1 },
-    ]),
-    userDetails(
-      createNewUser,
-      createJwtToken,
-      userModel,
-      createUserToken,
-      cloudinary,
-      uploadProfilePic,
-      uploadCoverPic,
-      image,
-      removeFile
-    )
+  "/createAccount",
+  upload.fields([
+    { name: "profilePic", maxCount: 1 },
+    { name: "coverPic", maxCount: 1 },
+    { name: "image0", maxCount: 1 },
+    { name: "image1", maxCount: 1 },
+    { name: "image2", maxCount: 1 },
+  ]),
+  userDetails(
+    createNewUser,
+    createJwtToken,
+    userModel,
+    createUserToken,
+    cloudinary,
+    uploadProfilePic,
+    uploadCoverPic,
+    image,
+    removeFile
+  )
 );
+
+userRoute.use(VerifyJwtToken(verifyUserToken));
+
+userRoute.get("/userData", userData(findUserWithId, userModel));
+
+userRoute.get("/discover", discoverUsers(userModel, showUsers));
+
+userRoute.put("/likeUser", likeUser(userModel, matchModel, likeUserAndMatch));
+
+userRoute.put("/dislikeUser", dislikeUser(userModel, dislikeAUser, matchModel));
 
 export default userRoute

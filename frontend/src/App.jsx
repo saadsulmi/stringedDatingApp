@@ -4,11 +4,13 @@ import { lazy, Suspense } from "react";
 import UserPublicRoute from './routes/UserPublicRoute';
 import Loader from './routes/Loader';
 import LandingPage from './pages/LandingPage/LandingPage';
+import UserPrivateRoute from './routes/UserPrivateRoute';
 
 
 const OtpRoute = lazy(()=>import ('./routes/OtpRoute'))
 const RegisterRoute = lazy(()=>import ('./routes/RegisterRoute'))
 const NotFound =lazy(()=> import('./pages/404Page/NotFound'))
+const HomePage =lazy(()=> import('./pages/HomePage/HomePage'))
 const OtpPage =lazy(()=> import('./pages/Otp/OtpPage'))
 const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 const Register = lazy(() => import("./pages/RegisterAccount/Register"));
@@ -27,7 +29,6 @@ function App() {
           <Route path='/' element={<LandingPage/>} />
           <Route path='/login' element={<LoginPage/>} />
           <Route path='/signup' element={<Register/>} />
-          <Route path='/register' element={<RegisterPage/>} />
           <Route path='/mobile' element={<MobileLogin/>} />
           <Route element={<OtpRoute/>}>
             <Route path='/otp' element={<OtpPage/>} />
@@ -35,7 +36,9 @@ function App() {
           <Route element={<RegisterRoute />}>
                 <Route path="/createAccount" element={<CreateAccount/>} />
           </Route>
-          
+        </Route>
+        <Route element={<UserPrivateRoute/>}>
+          <Route path="/Discover" element={<HomePage/>}/>
         </Route>
 
         </Route>

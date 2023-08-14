@@ -13,12 +13,19 @@ const formDataHeaders = {
     }
 }
 
+
 export const phoneNumberAPI = (data)=> axios.post("/api/phone",data);
 
-export const OTP_API = (data) => axios.post("/api//verifyOtp", data);
+export const OTP_API = (data) => axios.post("/api/verifyOtp", data);
 
-export const googleLoginAPI = (data) => axios.post("/api//googleLogin", data);
+export const googleLoginAPI = (data) => axios.post("/api/googleLogin", data);
 
 export const createAccountAPI = (userData) => axios.post("/api/createAccount", userData,formDataHeaders);
 
-export const userDataApi = () => axios.get("/api//userData", headers);
+export const userDataApi = () => axios.get("/api/userData", headers);
+
+export const DiscoverUsersApi = () => axios.get("/api/discover", headers);
+
+export const likeUserApi = (data) => axios.put("/api/likeUser", data, headers);
+
+export const disLikeUserApi = (data) => axios.put("/api/dislikeUser", data, headers);
