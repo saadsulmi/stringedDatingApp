@@ -12,7 +12,7 @@ export default function Sidebar() {
 
   const navItems=[
     "Find Out",
-    "Liked",
+    "LikedUsers",
     "Matches",
     "Chat",
     "Search",

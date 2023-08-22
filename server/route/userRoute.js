@@ -14,7 +14,12 @@ import {
   likeUser,
   dislikeUser,
   discoverUsers,
-  googleLogin
+  editUser,
+  googleLogin,
+  deleteUserImage,
+  matchedUsers,
+  getAllLikedUsers,
+  blockUser
 } from "../controller/userController.js";
 
 import {
@@ -24,7 +29,12 @@ import {
     likeUserAndMatch,
     dislikeAUser,
     showUsers,
-    findUserWithEmail
+    findUserWithEmail,
+    UpdateUser,
+    deleteImage,
+    getMatchedUsers,
+    showAllLikedUsers,
+    blockAUser
 } from '../interactors/UserInteractor.js'
 
 import{
@@ -88,5 +98,33 @@ userRoute.get("/discover", discoverUsers(userModel, showUsers));
 userRoute.put("/likeUser", likeUser(userModel, matchModel, likeUserAndMatch));
 
 userRoute.put("/dislikeUser", dislikeUser(userModel, dislikeAUser, matchModel));
+
+userRoute.patch(
+  "/userEdit",
+  upload.fields([
+    { name: "profilePic", maxCount: 1 },
+    { name: "coverPic", maxCount: 1 },
+    { name: "image0", maxCount: 1 },
+    { name: "image1", maxCount: 1 },
+    { name: "image2", maxCount: 1 },
+  ]),
+  editUser(
+    userModel,
+    UpdateUser,
+    cloudinary,
+    uploadProfilePic,
+    uploadCoverPic,
+    image,
+    removeFile
+  )
+);
+
+userRoute.patch("/deleteImage", deleteUserImage(userModel, deleteImage));
+
+userRoute.get("/matches", matchedUsers(getMatchedUsers, matchModel, userModel));
+
+userRoute.get("/allLikedUsers", getAllLikedUsers(showAllLikedUsers, userModel));
+
+userRoute.put("/blockUser", blockUser(userModel, blockAUser));
 
 export default userRoute

@@ -4,13 +4,13 @@ import { Grid } from "@mui/material";
 
 function ImageContent({ user }) {
   return (
-    <div>
+    <>
       <Grid
         item
         xs={12}
+        justifyContent={"center"}
         sx={{
           display: "flex",
-          justifyContent: "end",
           alignContent: "end",
           alignItems: "end",
         }}
@@ -25,8 +25,8 @@ function ImageContent({ user }) {
                 loading="lazy"
                 sx={{
                   mr: 2,
-                  width: { xs: 100, sm: 150, lg: 250 },
-                  height: { xs: 100, sm: 150, lg: 250 },
+                  width: { xs: 220, sm: 150, lg: 250 },
+                  height: { xs: 220 , sm: 150, lg: 250 },
                   bgcolor: "lightgray",
                   objectFit: "cover",
                   display: "flex",
@@ -41,7 +41,7 @@ function ImageContent({ user }) {
           <></>
         )}
       </Grid>
-    </div>
+    </>
   );
 }
 

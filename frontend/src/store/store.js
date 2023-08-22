@@ -4,6 +4,7 @@ import MobileReducer from '../features/users/MobileReducer'
 import RegisterReducer from '../features/users/RegisterReducer'
 import GoogleReducer from '../features/users/GoogleReducer'
 import UserReducer from '../features/users/UserReducer'
+import OnlineUserReducer from '../features/users/OnlineUsers'
 
 export const store = configureStore({
     reducer :{
@@ -11,7 +12,8 @@ export const store = configureStore({
         phone : MobileReducer,
         register : RegisterReducer,
         google : GoogleReducer,
-        user : UserReducer
+        user : UserReducer,
+        onlineUsers : OnlineUserReducer
     }
 })
 

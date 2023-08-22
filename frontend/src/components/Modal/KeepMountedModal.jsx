@@ -16,7 +16,7 @@ export default function KeepMountedModal({user,setUser,open,setOpen,isLoading}) 
   }
   return (
     <React.Fragment>
-      <Modal keepMounted open={open} onClose={handleClose } >
+      <Modal keepMounted open={open} onClose={handleClose} >
         <ModalOverflow>
 
         <ModalDialog
@@ -25,7 +25,7 @@ export default function KeepMountedModal({user,setUser,open,setOpen,isLoading}) 
             maxWidth:'50rem',
             maxHeight:'20rem',
             borderRadius: "2rem",
-            backgroundColor:"rgba(0,0,0,0.8)"
+            backgroundColor:"rgba(0,0,0,0.4)"
           }
         }
           aria-labelledby="keep-mounted-modal-title"
@@ -33,7 +33,8 @@ export default function KeepMountedModal({user,setUser,open,setOpen,isLoading}) 
         >
          <Box  sx={{ width: "100%", height: "15rem", position: "relative" }}>
               <Box
-                sx={{ objectFit: "cover",borderRadius: "2rem", width: "100%", height: "100%" }}
+                sx={{ objectFit: "cover",borderRadius: "2rem", width: "100%", height: "100%" ,
+                border:'solid white 0.07rem',}}
                 component="img"
                 src={user?.coverPic ? user?.coverPic : "/cover-picture.png"}
                 loading="lazy"
@@ -43,7 +44,8 @@ export default function KeepMountedModal({user,setUser,open,setOpen,isLoading}) 
                   objectFit: "cover",
                   width: {xs:150,lg:200},
                   height: {xs:150,lg:200},
-                  borderRadius: "10rem",
+                  borderRadius: "2rem",
+                  border:'solid white 0.07rem',
                   position: "absolute",
                   top: "100%",
                   left: { xs: "14%",sm:'28%', lg: "25%" },
@@ -93,7 +95,7 @@ export default function KeepMountedModal({user,setUser,open,setOpen,isLoading}) 
                           color:"white",
                           fontFamily: "sans-serif",
                           fontSize: { sm: "0.9rem",md:'1rem' },
-                          marginLeft:{lg:"4.5rem",sm:"7.5rem"}
+                          marginLeft:{lg:"3.5rem",sm:"7.5rem"}
                         }} 
                         variant="subtitle2"
                       >
@@ -124,7 +126,9 @@ export default function KeepMountedModal({user,setUser,open,setOpen,isLoading}) 
                   >
                    <ChipsContent isLoading={isLoading} user={user}/>
                   </Grid>
-           <ImageContent user={user}/>
+                  <Grid container item xl={12} justifyContent={'center'}>
+                   <ImageContent user={user}/>
+                  </Grid>
               </Grid>
           
         </ModalDialog>

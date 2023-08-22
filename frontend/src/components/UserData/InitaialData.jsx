@@ -28,7 +28,9 @@ export default function InitialData() {
     birthday: null,
     age: null,
     gender: "",
-    location: "kerala",
+    location: "",
+    latitude:"",
+    longitude:"",
     phone: "",
     Preference: "",
     isVerified: false,
@@ -149,12 +151,12 @@ export default function InitialData() {
       }));
     } else setError((prevState) => ({ ...prevState, bio: null }));
 
-    // if (!userData.location) {
-    //   setError((prevState) => ({
-    //     ...prevState,
-    //     location: "*Location is required",
-    //   }));
-    // } else setError((prevState) => ({ ...prevState, location: null })); 
+    if (!userData.location) {
+      setError((prevState) => ({
+        ...prevState,
+        location: "*Location is required",
+      }));
+    } else setError((prevState) => ({ ...prevState, location: null })); 
     
     if (
       userData.fullName  &&
@@ -224,6 +226,8 @@ export default function InitialData() {
     formData.append("smoking", userData.smoking);
     formData.append("bio", userData.bio);
     formData.append("phone", userData.phone);
+    formData.append("latitude", userData.latitude);
+    formData.append("longitude", userData.longitude);
     formData.append("Preference", userData.Preference);
     formData.append("realationshipStatus", userData.realationshipStatus);
     console.log('i am here to post image');

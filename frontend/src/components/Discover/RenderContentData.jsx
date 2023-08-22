@@ -6,24 +6,27 @@ import Box from "@mui/material/Box";
 import { Grid, Skeleton } from "@mui/material";
 import { Typography } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import ImageContent from "./ImageContent";
 import ChipsContent from "./ChipsContent";
 import { useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Loader from "../Loader/InitialLoader";
+import Loader from "../../components/Loader/InitialLoader";
 import KeepMountedModal from "../Modal/KeepMountedModal";
+import { useEffect } from "react";
 function RenderContentData({
   user,
   isLoading,
   filteredUsers,
   likeHandler,
   dislikeHandler,
+  skipHandler
 }) {
   console.log("why this kolaveri",filteredUsers);
   const [openModal, setOpenModal] = useState(false);
   const [users, setUsers] = useState("");
-
+ 
   const handleSubmit = (user) => {
     setUsers(user);
     setOpenModal(true);
@@ -64,7 +67,8 @@ function RenderContentData({
                     objectFit: "cover",
                     width: 150,
                     height: 150,
-                    borderRadius: "5rem",
+                    borderRadius: "1rem",
+                    border:'solid white 0.05rem',
                     position: "absolute",
                     top: "100%",
                     left: { xs: "20%",sm:'33%', lg: "0%" },
@@ -141,7 +145,17 @@ function RenderContentData({
                       >
                         Not Interested
                       </Button>
-
+                      <Button
+                        startIcon={<SkipNextRoundedIcon />}
+                        color="warning"
+                        
+                        variant="contained"
+                        sx={{ borderRadius: "1rem", px: { xs: 1, lg: 4 } }}
+                        size="medium"
+                        onClick={()=>skipHandler()} 
+                      >
+                        Skip
+                      </Button>
                       <Button
                         startIcon={<ThumbUpIcon />}
                         color="success"

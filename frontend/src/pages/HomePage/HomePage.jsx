@@ -3,7 +3,6 @@ import { Grid } from '@mui/material';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Discover from '../../components/Discover/DiscoverSide';
 import Header from '../../components/Header/Header';
-import { useSelector } from 'react-redux';
 
 function HomePage() {
 

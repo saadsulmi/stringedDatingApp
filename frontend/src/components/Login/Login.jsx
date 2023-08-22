@@ -49,34 +49,35 @@ function Login() {
   return (
     <div className='signupBlock'>
       <h3>Welcome! How do you want to get Login?</h3>
-      <GoogleLogin
 
-        type='standard'
-        theme='filled_black'
-        width={100}
-        padding={0}
-        shape='pill'
-        text='signin_with'
-        size='large'
+                <GoogleLogin
 
-        useOneTap
-          onSuccess={credentialResponse => {
-            let decoded=jwt_decode(credentialResponse.credential);
-            console.log(decoded);
-            if(decoded.email_verified){
-              setGoogleData({
-                fullName : decoded.name,
-                email: decoded.email,
-              })
-            }else{
-              console.log("email not verified");
-              navigate('/')
-            }
-          }}
-          onError={() => {
-            console.log('Login Failed');
-          }}
-        />
+          type='standard'
+          theme='filled_black'
+          width={100}
+          shape='rectangular'
+          text='signin_with'
+          size='large'
+
+          useOneTap
+            onSuccess={credentialResponse => {
+              let decoded=jwt_decode(credentialResponse.credential);
+              console.log(decoded);
+              if(decoded.email_verified){
+                setGoogleData({
+                  fullName : decoded.name,
+                  email: decoded.email,
+                })
+              }else{
+                console.log("email not verified");
+                navigate('/')
+              }
+            }}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
+
 
       <div className='breakSection'>
       <hr />

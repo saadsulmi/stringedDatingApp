@@ -31,6 +31,7 @@ import RelationIcon from "../Icons/RelationIcon";
 import ReligionIcon from "../Icons/ReligionIcon";
 import ModalEditUser from "../EditProfile/ModalEditUser";
 import Chip from "@mui/joy/Chip";
+import { fetchLocationApi } from "../../services/api";
 
 function FirstData({
   setUserData,
@@ -64,6 +65,35 @@ function FirstData({
     }));
   };
 
+  const locationSelector = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          setUserData((prevState) => ({
+            ...prevState,
+            latitude : latitude,
+            longitude : longitude
+          }))
+          console.log(latitude,longitude);
+          fetchLocationApi(latitude, longitude)
+            .then((res) => res.json())
+            .then((data) => {
+              setUserData((prevState) => ({
+                ...prevState,
+                location: data.city + "," + data.principalSubdivision,
+              }));
+            });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
 
   const dateToAge = (data) => {
     const selectedDate = new Date(data.$d);
@@ -370,6 +400,22 @@ function FirstData({
                 <Typography sx={{ color: "red" }}>{error.bio}</Typography>
               )}
               </Grid>
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <Button
+                sx={{ mt: 2 }}
+                color={error.location ? "error" : "info"}
+                size="small"
+                fullWidth
+                onClick={locationSelector}
+                variant="contained"
+                startIcon={<LocationOnIcon />}
+              >
+                {userData.location ? userData.location : "Location"}
+              </Button>
+              {error.location && (
+                <Typography sx={{ color: "red" }}>{error.location}</Typography>
+              )}
             </Grid>
             <Grid container direction={"column"} item xs={12} sm={12} alignItems={"center"}>
             <Grid

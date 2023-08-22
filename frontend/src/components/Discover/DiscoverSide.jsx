@@ -16,6 +16,7 @@ export default function DiscoverSide() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const [users, setUsers] = useState([]);
+  let [skip, setSkip] = useState(Math.random());
   const [isLoading, setLoading] = useState(true);
   const [shuffledUsers, setShuffledUsers] = useState([]);
   const [tost, settost] = useState({});
@@ -35,6 +36,8 @@ settost(initial)
     }
   }, [user]);
 
+ 
+
   useEffect(() => {
     DiscoverUsersApi()
       .then((res) => {
@@ -45,9 +48,10 @@ settost(initial)
       .catch((err) => {
         window.location.reload();
       });
-  }, [isLoading,user]);
+  }, [isLoading,user,skip]);
 
-  let filteredUsers = [];
+  
+   let filteredUsers = [];
 
   if (users) {
     const likedUserIds = user?.likedUsers.map((likedUser) =>
@@ -64,7 +68,7 @@ settost(initial)
       (user) =>
         !likedUserIds.includes(user?._id.toString()) &&
         !dislikedUserIds.includes(user?._id.toString())
-    );
+    ); 
     console.log(filteredUsers,"eppidi irukk en filteration");
   }
 
@@ -84,6 +88,10 @@ settost(initial)
 
     setShuffledUsers(shuffleArray(users));
   }, [users]);
+
+  const skipHandler = ()=>{
+    setSkip(Math.random())
+  }
 
   const likeHandler = async (id) => {
     const data = {
@@ -158,6 +166,7 @@ console.log(tost);
             filteredUsers={filteredUsers}
             likeHandler={likeHandler}
             dislikeHandler={dislikeHandler}
+            skipHandler={skipHandler}
           />:<Grid container item sx={{color:"yellow",width:"100%",height:'70vh',backgroundColor:"rgba(0,0,0,0.2)",borderRadius:"2rem"}} justifyContent={"center"} alignItems={"center"}><Typography>No More Users to discover</Typography></Grid>}
           <BoilerPlateCode success={tost.success} open={tost.open} data={tost.data} setToastClosed={setToastClosed} />
         </Grid>

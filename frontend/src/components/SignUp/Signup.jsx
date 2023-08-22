@@ -57,7 +57,6 @@ function SignUp() {
         text='signup_with'
         size='large'
 
-        useOneTap
           onSuccess={credentialResponse => {
             let decoded=jwt_decode(credentialResponse.credential);
             console.log(decoded);

@@ -47,6 +47,7 @@ export default function Header() {
     localStorage.removeItem("authorization.user");
     dispatch(ClearUserData());
     dispatch(Reset_user());
+    
     navigate("/");
   };
 

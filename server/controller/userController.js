@@ -63,7 +63,7 @@ export const verifyOtp =
       const token = await createJwtToken(user, createUserToken);
       res
         .status(200)
-        .json({ success: true, token, redirect: "/Discover", user: user });
+        .json({ success: true, token, redirect: "/findStrings", user: user });
       }
     } 
     catch (error) {
@@ -118,6 +118,16 @@ export const discoverUsers = (userModel, showUsers) => async (req, res) => {
   }
 };
 
+export const matchedUsers =
+  (getMatchedUsers, matchModel, userModel) => async (req, res) => {
+    try {
+      const matches = await getMatchedUsers(req.user.id, matchModel, userModel);
+      res.status(200).json(matches);
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  };
+
 export const likeUser =
   (userModel, matchModel, likeUserAndMatch) => async (req, res) => {
     try {
@@ -143,5 +153,65 @@ export const likeUser =
       res.status(200).json(user);
     } catch (error) {
       res.status(400).json(error);
+    }
+  };
+
+
+  
+  export const editUser =
+  (
+    userModel,
+    updateUser,
+    cloudinary,
+    uploadProfilePic,
+    uploadCoverPic,
+    image,
+    removeFile
+  ) =>
+  async (req, res) => {
+    try {
+      const user = await updateUser(
+        userModel,
+        req,
+        cloudinary,
+        uploadProfilePic,
+        uploadCoverPic,
+        image,
+        removeFile
+      );
+      console.log(user);
+      res.json(user);
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  };
+
+  export const deleteUserImage = (userModel, deleteImage) => async (req, res) => {
+    console.log('hi');
+    try {
+    await deleteImage(req.body.path, req.user.id, userModel)
+      res.json({message:true})
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  };
+
+  export const getAllLikedUsers =
+  (showAllLikedUsers, userModel) => async (req, res) => {
+    try {
+      const users = await showAllLikedUsers(req.user.id, userModel);
+      res.status(200).json(users);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  export const blockUser = (userModel, blockAUser) => async (req, res) => {
+    try {
+      const { User } = req.body;
+      const user = await blockAUser(req.user.id, User, userModel);
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(500).json(error);
     }
   };

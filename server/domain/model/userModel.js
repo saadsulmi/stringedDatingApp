@@ -32,6 +32,12 @@ const userSchema = new mongoose.Schema(
     location: {
       type: String,
     },
+    latitude:{
+      type:Number,
+    },
+    longitude:{
+      type:Number,
+    },
     Preference: {
       type: String,
       enum: ["Male", "Female", "Everyone"],
