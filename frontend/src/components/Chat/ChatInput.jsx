@@ -71,8 +71,8 @@ export default function ChatInput({ handleSendMsg, currentChat, user }) {
           }}
         >
           <Box sx={{ position: "relative" }}>
-            <IconButton>
-              <EmojiEmotionsIcon onClick={handleEmojiPickerhideShow} />
+            <IconButton onClick={handleEmojiPickerhideShow} >
+              <EmojiEmotionsIcon />
             </IconButton>
             {showEmojiPicker && (
               <Picker
@@ -86,7 +86,7 @@ export default function ChatInput({ handleSendMsg, currentChat, user }) {
           </Box>
           <TextField
             fullWidth
-            autoFocus={true}
+            
             value={msg}
             placeholder="Type Something..."
             onChange={(e) => handleTextChange(e)}
@@ -96,8 +96,9 @@ export default function ChatInput({ handleSendMsg, currentChat, user }) {
               },
             }}
           />
-         
+        
           <Button startIcon={<SendIcon />} onClick={sendChat} />
+          <Button startIcon={<MicIcon />} onClick={handleAudioUpload} />
         </Box>
       </Grid>
     </Grid>

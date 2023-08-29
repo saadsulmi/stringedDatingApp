@@ -122,11 +122,14 @@ export const matchedUsers =
   (getMatchedUsers, matchModel, userModel) => async (req, res) => {
     try {
       const matches = await getMatchedUsers(req.user.id, matchModel, userModel);
+      console.log("my uuser match data" ,matches);
+
       res.status(200).json(matches);
     } catch (error) {
       res.status(400).json(error);
     }
   };
+
 
 export const likeUser =
   (userModel, matchModel, likeUserAndMatch) => async (req, res) => {

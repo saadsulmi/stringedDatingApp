@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { ReadMsgsApi, addNewMSgApi, getAllmsgsApi } from "../../services/api";
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
-// import VIdeoCallModal from "../ErrorModals/VIdeoCallModal";
+import VIdeoCallModal from "../ErrorModals/VIdeoCallModal";
 function ChatCard({ currentChat, setCurrentChat, socket,onlineUsers }) {
   const user = useSelector((state) => state.user.user);
   const [messages, setMessages] = useState([]);
@@ -30,7 +30,7 @@ function ChatCard({ currentChat, setCurrentChat, socket,onlineUsers }) {
   const [modal,setModal]=useState(false)
   
   useEffect(() => {
-    console.log(onlineUsers,"my online users ");
+    console.log(onlineUsers);
     if (onlineUsers.length > 0) {
       if (onlineUsers.includes(currentChat._id)) {
   setCurrentChat((prev)=>({...prev,isOnline:true}))
@@ -87,6 +87,7 @@ function ChatCard({ currentChat, setCurrentChat, socket,onlineUsers }) {
   }, [currentChat]);
 
   const handleSendMsg = async (msg) => {
+
     const data = {
       from: user._id,
       to: currentChat._id,
@@ -99,6 +100,7 @@ function ChatCard({ currentChat, setCurrentChat, socket,onlineUsers }) {
     const msgs = [...messages];
     msgs.push({ fromSelf: true, message: msg });
     setMessages(msgs);
+    console.log("oh my god atleast am here");
   };
 
   useEffect(() => {
@@ -133,26 +135,26 @@ function ChatCard({ currentChat, setCurrentChat, socket,onlineUsers }) {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // const handleVideoCall = () => {
-  //   console.log(user)
-  //   if(user.HoneyVipType.length>0 || user.HoneyVipType.includes('gold')){
-  //   const data = {
-  //     conversationId: currentChat.conversationId,
-  //     to: currentChat._id,
-  //     from: user._id,
-  //     profilePic: user.profilePic,
-  //     fullname: user.fullName,
-  //   };
-  //   socket.emit("videoCall", data)
-  //   window.open(
-  //     `/room/${currentChat.conversationId}`,
-  //     "_blank",
-  //     "height=400,width=600"
-  //   );
-  // }else{
-  //   setModal(true)
-  // }
-  // };
+  const handleVideoCall = () => {
+    console.log(user)
+    if(user.StringedVipType.length>0 || user.StringedVipType.includes('gold')){
+    const data = {
+      conversationId: currentChat.conversationId,
+      to: currentChat._id,
+      from: user._id,
+      profilePic: user.profilePic,
+      fullname: user.fullName,
+    };
+    socket.emit("videoCall", data)
+    window.open(
+      `/room/${currentChat.conversationId}`,
+      "_blank",
+      "height=400,width=600"
+    );
+  }else{
+    setModal(true)
+  }
+  };
 
   const messageSection = () => {
     return messages.map((msg, index) => {
@@ -232,7 +234,7 @@ function ChatCard({ currentChat, setCurrentChat, socket,onlineUsers }) {
 
   return (
     <Grid container>
-      {/*include video call model  */}
+      <VIdeoCallModal open={modal} close={handleClose}  />
       <Grid
         item
         container

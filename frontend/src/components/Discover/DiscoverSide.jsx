@@ -56,18 +56,16 @@ settost(initial)
   if (users) {
     const likedUserIds = user?.likedUsers.map((likedUser) =>
       likedUser.toString()
-    )||[];
-    
+    );
     console.log("users i liked are",likedUserIds);
     const dislikedUserIds = user?.dislikedUsers.map((dislikedUser) =>
     dislikedUser.toString()
-    )||[];
+    );
     console.log("users i disliked are",dislikedUserIds);
 
     filteredUsers = shuffledUsers?.filter(
       (user) =>
-        !likedUserIds.includes(user?._id.toString()) &&
-        !dislikedUserIds.includes(user?._id.toString())
+        !likedUserIds.includes(user?._id.toString())&&!dislikedUserIds.includes(user?._id.toString())
     ); 
     console.log(filteredUsers,"eppidi irukk en filteration");
   }

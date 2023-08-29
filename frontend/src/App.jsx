@@ -1,12 +1,14 @@
 import './App.css'
-import { Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { lazy, Suspense, useEffect, useState } from "react";
 import UserPublicRoute from './routes/UserPublicRoute';
 import Loader from './routes/Loader';
 import LandingPage from './pages/LandingPage/LandingPage';
 import UserPrivateRoute from './routes/UserPrivateRoute';
 import AdminLogin from './pages/AdminPages/AdminLogin/AdminLogin';
-
+import { socket } from './Socket';
+import { SetOnlineUserData } from './features/users/OnlineUsers';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 // admin section
@@ -33,6 +35,67 @@ const LikedUsersPage = lazy(() =>import("./pages/LikedUsersPage/LikedUsersPage")
 
 
 function App() {
+
+
+
+  const user = useSelector((state) => state.user.user);
+  const [call, setCall] = useState({
+    modal: false,
+  });
+  const [loader, setLoader] = useState(true);
+  const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (user) {
+      socket.connect();
+      socket.emit("add-user", user._id);
+    }
+  }, [user, pathname]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      socket.emit("getOnlineUsers", user._id);
+      console.log('Emitting socket event every second');
+    }, 5000); // 1000 milliseconds = 1 second
+
+    return () => {
+      // Clear the interval when the component unmounts to avoid memory leaks
+      clearInterval(interval);
+    };
+  }, [user]);
+
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false);
+    }, 6000);
+  }, []);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("connect_error", (error) => {
+        console.log("Socket connect_error:", error);
+      });
+
+      socket.on("error", (error) => {
+        console.log("Socket error:", error);
+      });
+     
+      socket.on("onlineUsersList", (data) => {
+        console.log(data,'<=from app');
+        dispatch(SetOnlineUserData(data));
+      });
+    }
+    return () => {
+      socket.off("connect_error");
+      socket.off("error");
+    };
+  }, []);
+
+  
+
+
 
   return (
     <>

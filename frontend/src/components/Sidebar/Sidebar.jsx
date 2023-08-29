@@ -11,11 +11,10 @@ export default function Sidebar() {
   const navigate=useNavigate()
 
   const navItems=[
-    "Find Out",
+    "Discover",
     "LikedUsers",
     "Matches",
     "Chat",
-    "Search",
     "Premium"
   ]
   return (

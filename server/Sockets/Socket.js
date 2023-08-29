@@ -1,25 +1,27 @@
 import { Server } from "socket.io";
 import chatModel from "../domain/model/chatModel.js";
 import matchModel from "../domain/model/matchesModel.js";
-import { addNewMsg, getLatestMessage } from "../usecases/ChatInteractor.js";
-import { isUserMatched } from "../usecases/MatchesInteractor.js";
+import { addNewMsg, getLatestMessage } from "../interactors/ChatInteractor.js";
+import { isUserMatched } from "../interactors/MatchesInteractor.js";
 
 const io = new Server({
   cors: {
-    origin: true ,
+    origin: ["http://localhost:5173"] ,
   },
   pingTimeout: 60000,
 });
 
 global.onlineUsers = new Map();
 
+
+
 io.on("connection", (Socket) => {
   global.chatSocket = Socket;
-
+  
   Socket.on("add-user", (userId) => {
     onlineUsers.set(userId, Socket.id);
   });
-
+  
   Socket.on("disconnect", () => {
     const userId = [...onlineUsers.entries()].find(([key, value]) => value === Socket.id)?.[0];
     if (userId) {
@@ -39,8 +41,8 @@ io.on("connection", (Socket) => {
     
   });
 
-
   Socket.on("send-msg", async (data) => {
+    console.log(data.message);
     const sendUserSocket = onlineUsers.get(data.to);
     const result = await addNewMsg(data, chatModel);
 

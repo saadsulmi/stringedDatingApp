@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import ChatCard from "./ChatCard";
 import { useRef } from "react";
 import SelectUserChat from "./SelectUserChat";
+import { host } from "../../constants/Constants";
 import {socket } from '../../Socket'
 import { ReadMsgsApi, ShowMatchesApi } from "../../services/api";
 import dayjs from "dayjs";
@@ -30,6 +31,7 @@ function ChatContainer() {
           ShowMatchesApi().then((res) => {
             if(res.data.length>0){
                 setContacts(res.data);
+                console.log(contacts,"these are the contacts");
               }else{
                 setIsEmpty(true)
               }
@@ -97,7 +99,7 @@ function ChatContainer() {
              ):(
     <CardContent>
         {currentChat === undefined ? (
- <SelectUserChat contacts={contacts} setContacts={setContacts} changeChat={handleChatChange} user={user} onlineUsers={onlineUsers}/>
+        <SelectUserChat contacts={contacts} setContacts={setContacts} changeChat={handleChatChange} user={user} onlineUsers={onlineUsers}/>
       ) : (
         <ChatCard currentChat={currentChat} setCurrentChat={setCurrentChat} socket={socket} onlineUsers={onlineUsers}/>
       )}
