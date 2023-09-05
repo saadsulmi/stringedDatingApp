@@ -10,6 +10,7 @@ import {
   Typography,
   TextareaAutosize,
 } from "@mui/material";
+import Slider from '@mui/material/Slider';
 import dayjs from "dayjs";
 import Chip from "@mui/joy/Chip";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -302,6 +303,65 @@ const handleDeleteImage=async(path)=>{
               <Typography sx={{ color: "red" }}>{error.bio}</Typography>
             )}
           </Grid>
+
+        <Grid container item xs={12} xl={12} justifyContent={"center"}>
+        <Grid item xs={12}>
+            <Typography
+                     sx={{ marginTop:"20px", fontSize:"18px" }}
+                  >
+                    {userData.distance === 0 ? "Show Everyone" : `Show Strings Upto ${userData.distance} KM`} 
+                  </Typography>
+          </Grid>
+          <Grid item xs={12} justifyContent={"center"}  >
+                <Box
+                sx={{
+                  padding: { sm: '0', xl:"0 300px 0 300px"}
+                }} 
+                >
+
+                    <Slider
+                      defaultValue={userData.distance}
+                      value={userData.distance}
+                      onChange={(e) =>
+                        setUserData((prev) => ({
+                          ...prev,
+                          distance : e.target.value,
+                        }))
+                      }
+                      step={10}
+                      valueLabelDisplay="auto"
+                    />
+
+                    </Box>
+          </Grid>
+
+          <Grid item xs={12} alignItems={"center"}>
+                  <Typography
+                     sx={{ marginTop:"20px", fontSize:"18px" }}
+                  >
+                    {userData.ageLimit[0] === userData.ageLimit[1] ? `Show Strings with Age ${userData.ageLimit[0]}` : `Show strings with Age between ${userData.ageLimit[0]} and ${userData.ageLimit[1]}`} 
+                  </Typography>
+                  <Box sx={{ padding:{xs:"0",xl:"0 200px 0 200px"} }}>
+                      <Slider
+                        getAriaLabel={() => 'Temperature range'}
+                        value={userData.ageLimit}
+                        onChange={(event, newValue) => {
+                          console.log("this is the new value",newValue);
+                          setUserData((prev) => ({
+                            ...prev,
+                            ageLimit : newValue,
+                          }))
+                        }}
+                        min={18}
+                        max={99}
+                        valueLabelDisplay="auto"
+                        disableSwap
+                      />
+                    </Box>
+            </Grid>
+        </Grid>
+
+
           <Grid
             item
             xs={12}
@@ -313,6 +373,7 @@ const handleDeleteImage=async(path)=>{
               justifyContent: "space-between",
             }}
           >
+           
             <Grid container item xl={12} justifyContent={"center"}>
             <Chip
               onClick={() => openModal("gender")}

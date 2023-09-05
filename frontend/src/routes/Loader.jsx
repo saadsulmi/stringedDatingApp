@@ -6,10 +6,12 @@ import { Navigate,Outlet } from 'react-router-dom';
 import InitialLoader from '../components/Loader/InitialLoader';
 function Loader({user}) {
     const [initial,setInitial]=useState(true);
+    let time
+    user?time=4000:time=3500
     useEffect(()=>{
         setTimeout(()=>{
         setInitial(false)
-        },3500)
+        },time)
     },[]);
     return initial?<InitialLoader user={user} image={myanimation}/>:<Outlet/>
 }

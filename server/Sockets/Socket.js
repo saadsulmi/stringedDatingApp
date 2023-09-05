@@ -16,14 +16,27 @@ global.onlineUsers = new Map();
 
 
 io.on("connection", (Socket) => {
+  console.log("user is logged in",Socket.id);
+
   global.chatSocket = Socket;
   
   Socket.on("add-user", (userId) => {
+    console.log("user added as loggedddfas in user id ",userId);
     onlineUsers.set(userId, Socket.id);
   });
-  
+
+
+  Socket.on("remove-user", (userId) => {
+    console.log("user remove in user id ",userId);
+    if (userId) {
+      onlineUsers.delete(userId);
+     }
+  });
+
   Socket.on("disconnect", () => {
+    console.log("user disconnected", Socket.id);
     const userId = [...onlineUsers.entries()].find(([key, value]) => value === Socket.id)?.[0];
+    console.log("obtained id",userId);
     if (userId) {
      onlineUsers.delete(userId);
     }

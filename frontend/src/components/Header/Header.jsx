@@ -20,16 +20,21 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Person2Icon from "@mui/icons-material/Person2";
 import { userDataApi } from "../../services/api";
 import logo from '../../assets/image/stringedlogo.png'
+import { ClearOnlineUserData } from "../../features/users/OnlineUsers";
+import { socket } from "../../Socket";
+
 export default function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.user);
+  const {user} = useSelector((state) => state.user);
   const { auth } = useSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
 
   useEffect(() => {
-    userDataApi()
+    console.log(auth);
+    if(auth){
+      userDataApi()
       .then((res) => {
         if (res.data) {
           dispatch(SetUserData(res.data));
@@ -41,14 +46,15 @@ export default function Header() {
       .catch((err) => {
         console.log(err);
       });
-  }, [auth]);
+    }
+  }, []);
 
   const logoutHandler = () => {
+    socket.emit("remove-user",user._id);
     localStorage.removeItem("authorization.user");
     dispatch(ClearUserData());
     dispatch(Reset_user());
-    
-    navigate("/");
+    navigate('/')
   };
 
   const handleMenu = (event) => {
@@ -61,7 +67,7 @@ export default function Header() {
   const SideBarItems = ["Discover","LikedUsers", "Matches", "Chat", "Search", "Premium"];
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{marginBottom:"50px"}} color="transparent" position="static">
+      <AppBar sx={{marginBottom:"5px"}} color="transparent" position="static">
         <Toolbar>
           <Grid container>
             <Grid
@@ -80,7 +86,7 @@ export default function Header() {
             <Grid item xs={6}></Grid>
 
             <Grid item xs={1}>
-              {user && (
+              {(user) && (
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -88,7 +94,7 @@ export default function Header() {
                   aria-haspopup="true"
                   onClick={handleMenu}
                   color="inherit"
-                >
+                >{console.log(user)}
                   <MenuIcon />
                 </IconButton>
               )}

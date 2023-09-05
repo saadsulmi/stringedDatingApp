@@ -20,14 +20,15 @@ function RenderMatchCard({ matches, isLoading }) {
      <Grid item xs={2} sm={0}>
 
 </Grid>
-<Grid item xs={12} sm={8.2} md={12} lg={12} sx={{ my: 2 }}>
+<Grid item xs={12} sm={8.2} md={12} lg={12} sx={{ my: 0 }}>
         <Card
           className="CardItems"
           variant="outlined"
           sx={{
             height: '38rem',
-            mb: 4,
-            borderRadius: 6,
+            marginTop:"-115px",
+            mb: 0,
+            borderRadius: 3,
             backdropFilter: "brightness(0.9) blur(15px)",
             backgroundColor: "rgba(255, 255, 255, 0.5)",
             overflow: "hidden",

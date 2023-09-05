@@ -15,6 +15,8 @@ import BoilerPlateCode from "../Boilerplate";
 export default function DiscoverSide() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+
+  
   const [users, setUsers] = useState([]);
   let [skip, setSkip] = useState(Math.random());
   const [isLoading, setLoading] = useState(true);
@@ -25,8 +27,11 @@ export default function DiscoverSide() {
     success:false,
     data:''
   }
+
+  
   useEffect(()=>{
-settost(initial)
+    settost(initial)
+   
   },[])
   useEffect(() => {
     if (user) {
@@ -37,40 +42,85 @@ settost(initial)
   }, [user]);
 
  
-
+  
   useEffect(() => {
     DiscoverUsersApi()
-      .then((res) => {
+    .then((res) => {
         console.log("hai chellom i aam here",res.data);
         setUsers(res.data);
-        console.log("user ok thaan",users);
       })
       .catch((err) => {
         window.location.reload();
       });
-  }, [isLoading,user,skip]);
+    }, [isLoading,user,skip]);
+    
 
-  
-   let filteredUsers = [];
 
-  if (users) {
-    const likedUserIds = user?.likedUsers.map((likedUser) =>
-      likedUser.toString()
-    );
-    console.log("users i liked are",likedUserIds);
-    const dislikedUserIds = user?.dislikedUsers.map((dislikedUser) =>
-    dislikedUser.toString()
-    );
-    console.log("users i disliked are",dislikedUserIds);
+    
 
-    filteredUsers = shuffledUsers?.filter(
-      (user) =>
-        !likedUserIds.includes(user?._id.toString())&&!dislikedUserIds.includes(user?._id.toString())
-    ); 
-    console.log(filteredUsers,"eppidi irukk en filteration");
-  }
+    let filteredUsers = [];
+    
+    if (users) {
+        const likedUserIds = user?.likedUsers.map((likedUser) =>
+        likedUser.toString()
+        );
+        const dislikedUserIds = user?.dislikedUsers.map((dislikedUser) =>
+        dislikedUser.toString()
+        );
+        
+        filteredUsers = shuffledUsers?.filter(
+          (user) =>
+          !likedUserIds.includes(user?._id.toString())&&!dislikedUserIds.includes(user?._id.toString())
+          ); 
+          console.log(filteredUsers,"eppidi irukk en filteration");
+
+          if(user&&user.distance>0){
+            filteredUsers = filteredUsers.filter((myuser)=>{
+              let limits=user.ageLimit[0]
+              let lim1=parseInt(limits.slice(0,2))
+              let lim2=parseInt(limits.slice(3,6))
+            if( lim1<=myuser.age&&lim2>=myuser.age) {
+              console.log("hai hai hai hai");
+              let {userDistance,realDistance}=distance(myuser.latitude,myuser.longitude);
+              console.log("distance between users",userDistance,realDistance);
+              if (realDistance<userDistance) return user
+            }
+          })
+        }
+      }
+      
+// Program for distance between two points on earth Haversine formula
+
+function distance(lat1, lon1,
+  lat2=user.latitude, lon2=user.longitude)
+{
+console.log(lat2,lon2,"sheri aano",lat1,lon1);
+// The math module contains a function
+// named toRadians which converts from
+// degrees to radians.
+lon1 =  lon1 * Math.PI / 180;
+lon2 = lon2 * Math.PI / 180;
+lat1 = lat1 * Math.PI / 180;
+lat2 = lat2 * Math.PI / 180;
+
+// Haversine formula
+let dlon = lon2 - lon1;
+let dlat = lat2 - lat1;
+let a = Math.pow(Math.sin(dlat / 2), 2)
++ Math.cos(lat1) * Math.cos(lat2)
+* Math.pow(Math.sin(dlon / 2),2);
+
+let c = 2 * Math.asin(Math.sqrt(a));
+let r = 6371;
+
+return({realDistance:Math.round(c * r)+5,userDistance:user.distance});
+
+}
+
 
   useEffect(() => {
+    //
+    
     // Function to shuffle the array using Fisher-Yates algorithm
     const shuffleArray = (array) => {
       const shuffledArray = array.slice();

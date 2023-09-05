@@ -31,6 +31,8 @@ export default function InitialData() {
     location: "",
     latitude:"",
     longitude:"",
+    distance:"",
+    ageLimit:[18,23],
     phone: "",
     Preference: "",
     isVerified: false,
@@ -144,6 +146,23 @@ export default function InitialData() {
         drinking: "*this field is required",
       }));
     } else setError((prevState) => ({ ...prevState, drinking: null }));
+  
+  
+      if (!userData.distance) {
+        setError((prevState) => ({
+          ...prevState,
+          distance : "*please mention about the distance",
+        }));
+      } else setError((prevState) => ({ ...prevState, distance: null }));
+
+      if (!userData.ageLimit) {
+        setError((prevState) => ({
+          ...prevState,
+          distance : "*please mention age limit",
+        }));
+      } else setError((prevState) => ({ ...prevState, ageLimit: [] }));
+
+
     if (!userData.bio) {
       setError((prevState) => ({
         ...prevState,
@@ -199,6 +218,7 @@ export default function InitialData() {
       }));
     } else setError((prevState) => ({ ...prevState, profilePic: null }));
 
+
     if (!userData.profilePic || !userData.coverPic) {
       setErrorToast({});
       setErrorToast({
@@ -219,7 +239,9 @@ export default function InitialData() {
     formData.append("email", userData.email);
     formData.append("birthday", userData.birthday);
     formData.append("age", userData.age);
+    formData.append("distance", userData.distance);
     formData.append("gender", userData.gender);
+    formData.append("ageLimit", userData.ageLimit);
     formData.append("location", userData.location);
     formData.append("faith", userData.faith);
     formData.append("drinking", userData.drinking);

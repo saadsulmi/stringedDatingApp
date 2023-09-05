@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function BoilerPlateCode({success,open, data,setToastClosed}) {
   const toastOptions = {
-    position: "bottom-right",
+    position: "top-right",
     draggable: true,
     theme: "light",
     onClose: () => setToastClosed(),

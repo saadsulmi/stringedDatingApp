@@ -1,7 +1,7 @@
 export const phoneOtp = (SendPhoneOtp, sendOtp) => async (req, res) => {
     const { phone } = req.body;
-    console.log(phone);
     try {
+      console.log("hehehehehhe");
       await SendPhoneOtp(phone, sendOtp);
       res.json({ success: true }).status(200);
     } catch (error) {
@@ -27,7 +27,6 @@ export const verifyOtp =
       if (verificationStatus.status === "approved") {
         const user = await findUserWithPhone(phone, userModel);
         if (!user) {
-          console.log('i am just waiting to send res');
           res.json({
             success: true,
             newUser: true,
@@ -52,7 +51,6 @@ export const verifyOtp =
   async (req, res) => {
     try {
       const { email } = req.body;
-      console.log(email,"server side email");
       const user = await findUserWithEmail(email, userModel);
       if (!user) {
         res
@@ -90,7 +88,6 @@ export const userDetails =
         image,
         removeFile,req);
         const token = await createJwtToken(user, createUserToken);
-        console.log("i am on server side");
         res.status(200)
         .json({ success: true, redirect: "/profile", user, token });
     } catch (error) {
@@ -109,9 +106,7 @@ export const userData = (findUserWithId, userModel) => async (req, res) => {
 
 export const discoverUsers = (userModel, showUsers) => async (req, res) => {
   try {
-    console.log("working on server side");
     const users = await showUsers(req, userModel);
-    console.log(users);
     res.json(users);
   } catch (error) {
     res.status(400).json(error);
@@ -122,7 +117,6 @@ export const matchedUsers =
   (getMatchedUsers, matchModel, userModel) => async (req, res) => {
     try {
       const matches = await getMatchedUsers(req.user.id, matchModel, userModel);
-      console.log("my uuser match data" ,matches);
 
       res.status(200).json(matches);
     } catch (error) {
@@ -182,7 +176,6 @@ export const likeUser =
         image,
         removeFile
       );
-      console.log(user);
       res.json(user);
     } catch (error) {
       res.status(400).json(error);

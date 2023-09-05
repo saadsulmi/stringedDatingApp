@@ -44,9 +44,13 @@ import{
 } from '../interactors/CloudinaryInteractor.js'
 
 import removeFile from '../utils/FileRemover.js';
+
 import cloudinary from '../utils/Cloudinary.js';
+
 import { VerifyJwtToken, createJwtToken } from '../interactors/AuthInteractor.js'
+
 import { createUserToken, verifyUserToken} from '../utils/jwt.js'
+
 import { SendPhoneOtp,VerifyPhoneOtp } from '../interactors/OtpInteractor.js';
 
 userRoute.post("/phone", phoneOtp(SendPhoneOtp, sendOtp));

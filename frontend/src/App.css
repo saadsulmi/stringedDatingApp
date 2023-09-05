@@ -61,8 +61,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 37rem;
+  height: 39rem;
   width: 97%;
+  margin-top: 30px;
   border-radius: 5px;
   background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.9)), url(https://images.pexels.com/photos/3704987/pexels-photo-3704987.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
   background-size: cover;

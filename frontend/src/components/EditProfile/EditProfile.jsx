@@ -28,6 +28,8 @@ function EditProfile({ edit, setEdit }) {
     age: user.age,
     gender: user.gender || "Your Gender",
     location: user.location,
+    distance:user.distance||0,
+    ageLimit:[user.age,user.age+5],
     phone: user.phone,
     Preference: user.Preference,
     profilePic: user.profilePic || "/avatar.jpg",
@@ -67,6 +69,8 @@ function EditProfile({ edit, setEdit }) {
     formData.append("email", userData.email);
     formData.append("birthday", userData.birthday);
     formData.append("age", userData.age);
+    formData.append("ageLimit", userData.ageLimit);
+    formData.append("distance", userData.distance);
     formData.append("gender", userData.gender);
     formData.append("location", userData.location);
     formData.append("faith", userData.faith);
@@ -237,6 +241,13 @@ function EditProfile({ edit, setEdit }) {
       }));
     } else setError((prevState) => ({ ...prevState, profilePic: null }));
 
+    if (!userData.distance) {
+      setError((prevState) => ({
+        ...prevState,
+        distance: "*Distance required",
+      }));
+    } else setError((prevState) => ({ ...prevState, distance : null }));
+
     if (
       userData.fullName  &&
       userData.email  &&
@@ -280,20 +291,20 @@ function EditProfile({ edit, setEdit }) {
 
         <Grid item xs={12} sm={10} md={8} lg={6} xl={10}>
           <EditProfileCard
-          validateInputs={validateInputs}
-            userData={userData}
-            setUserData={setUserData}
-            error={error}
-            coverPicREF={coverPicREF}
-            profilePicREF={profilePicREF}
-            image0={image0}
-            image1={image1}
-            image2={image2}
-            openModal={openModal}
-            handleSubmit={handleSubmit}
-            isLoading={isLoading}
-            loader={loader}
-            setLoader={setLoader}
+              validateInputs={validateInputs}
+              userData={userData}
+              setUserData={setUserData}
+              error={error}
+              coverPicREF={coverPicREF}
+              profilePicREF={profilePicREF}
+              image0={image0}
+              image1={image1}
+              image2={image2}
+              openModal={openModal}
+              handleSubmit={handleSubmit}
+              isLoading={isLoading}
+              loader={loader}
+              setLoader={setLoader}
           />
         </Grid>
         <ModalEditUser

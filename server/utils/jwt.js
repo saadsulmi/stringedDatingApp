@@ -13,15 +13,13 @@ try {
   console.log(error)
   throw new Error('failed to authenticate')
 }
- 
-
 };
 
 export const verifyUserToken = (token,req) => {
   const verified = jwt.verify(token, process.env.SECRET_KEY_USER);
   if (verified) {
-    console.log(verified,"bppp");
-   req.user = verified;;
+    // console.log(verified,"bppp");
+   req.user = verified;
 return true
   } else {
     throw new Error("invalid Token");

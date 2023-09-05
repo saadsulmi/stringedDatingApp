@@ -39,6 +39,7 @@ function App() {
 
 
   const user = useSelector((state) => state.user.user);
+  const auth = useSelector((state) => state.auth);
   const [call, setCall] = useState({
     modal: false,
   });
@@ -54,6 +55,7 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      console.log("user id",user);
       socket.emit("getOnlineUsers", user._id);
       console.log('Emitting socket event every second');
     }, 5000); // 1000 milliseconds = 1 second

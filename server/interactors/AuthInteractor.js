@@ -1,6 +1,6 @@
 export const createJwtToken = async (user, createUserToken) => {
     try {
-      console.log("iam",user);
+      // console.log("iam",user);
       return createUserToken(user);
     } catch (error) {
       throw new Error(error);

@@ -29,6 +29,7 @@ const Phone = ({ changePhone,error,setError }) => {
 
         <Grid container direction={"column"} justifyContent="center" spacing={2}>
         
+
             <Typography
             variant="h5"
             sx={{
@@ -39,13 +40,12 @@ const Phone = ({ changePhone,error,setError }) => {
                 color: "inherit",
                 textDecoration: "none",
             }}
-            >
-            Enter Your Phone Number
-            </Typography>
-            <Typography sx={{ textAlign: "center", mb: 4 }}>
-            We will send an OTP to this phone number
-            </Typography>
+            > Enter Your Phone Number </Typography>
+
+            <Typography sx={{ textAlign: "center", mb: 4 }}> We will send an OTP to this phone number </Typography>
+
            <Grid textAlign={"center"}>
+
            <MuiTelInput
             defaultCountry="IN"
             variant="standard"
@@ -53,6 +53,7 @@ const Phone = ({ changePhone,error,setError }) => {
             required
             onChange={handleChange}
             />
+
            </Grid>
         </Grid>
     </>

@@ -12,7 +12,7 @@ import ImageContent from "./ImageContent";
 import ChipsContent from "./ChipsContent";
 import { useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Loader from "../../components/Loader/InitialLoader";
+import Loader from '../../routes/Loader';
 import KeepMountedModal from "../Modal/KeepMountedModal";
 import { useEffect } from "react";
 function RenderContentData({
@@ -37,21 +37,21 @@ function RenderContentData({
         <Grid item xs={12} sx={{ my: 2, position: "absolute", width: "100%" }}>
           <Loader user={user} />
         </Grid>
-      ) : filteredUsers.length > 0 ? (
+      ) : filteredUsers.length > 0 ? (  
         filteredUsers.map((user) => (
           <Grid
             item
             xs={12}
-            sx={{ my: 2, position: "absolute", width: "100%" }}
+            sx={{ my: -6, position: "absolute", width: "100%" }}
             key={user._id}
           >
             <Card
               className="CardItems"
               variant="outlined"
               sx={{
-                mb: 4,
+                mb: 0,
                 minHeight: "70vh",
-                borderRadius: 6,
+                borderRadius: 3,
               
               }}
             >
@@ -206,7 +206,7 @@ function RenderContentData({
         xs={11.9}
         lg={11}
         container
-        sx={{ mb: 10, position: "relative" }}
+        sx={{ mb: 10 , position: "relative" }}
       >
         <Card
           className="CardItems"

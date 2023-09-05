@@ -14,14 +14,14 @@ function RenderLikedUsersCard({
   return (
     <>
       <Grid item xs={2} sm={0}></Grid>
-      <Grid item sm={8.2} lg={12} sx={{ my: 2 }}>
+      <Grid item sm={8.2} lg={12} sx={{ my: -6 }}>
         <Card
           className="CardItems"
           variant="outlined"
           sx={{
             height: "38rem",
-            mb: 4,
-            borderRadius: 6,
+            marginTop:"-115px",
+            borderRadius: 3,
             backdropFilter: "brightness(0.9) blur(15px)",
             backgroundColor: "rgba(255, 255, 255, 0.5)",
             overflow: "hidden",

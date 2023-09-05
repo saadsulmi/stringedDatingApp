@@ -23,7 +23,7 @@ export const findUserWithId = async (id, userModel) => {
 export const findUserWithEmail = async (email, userModel) => {
   try {
     const user = await userModel.findOne({ email });
-    console.log(user);
+    // console.log(user);
     return user;
   } catch (error) {
     console.error(error);
@@ -37,7 +37,6 @@ export const createNewUser = async (userData, userModel,  cloudinary,
     image,
     removeFile,req) => {
     try {
-      console.log(req.hostname);
       const user = new userModel(userData);
       
       if (req?.files?.profilePic) {
@@ -114,7 +113,6 @@ export const createNewUser = async (userData, userModel,  cloudinary,
         ]);
       }
       
-      console.log(users,"here is my");
       return users;
     } catch (error) {
       throw new Error("Failed to lookup users");
@@ -123,7 +121,6 @@ export const createNewUser = async (userData, userModel,  cloudinary,
 
   export const likeUserAndMatch = async (user1, user2, userModel, matchModel) => {
     try {
-      console.log(user1,user2);
       const user = await userModel.findByIdAndUpdate(
         user1,
         {
@@ -169,13 +166,11 @@ export const createNewUser = async (userData, userModel,  cloudinary,
 
   export const dislikeAUser = async (user1, user2, userModel, matchModel) => {
     try {
-      console.log(user2);
       let user;
       const isUserLiked = await userModel.findOne({
         _id: user1,
         likedUsers: { $in: [user2] },
       });
-      console.log(isUserLiked);
       if (isUserLiked) {
         isUserLiked.likedUsers.pull(user2);
         const match = await matchModel.findOne({
@@ -234,7 +229,9 @@ export const createNewUser = async (userData, userModel,  cloudinary,
         birthday,
         age,
         gender,
+        ageLimit,
         location,
+        distance,
         faith,
         drinking,
         smoking,
@@ -248,7 +245,9 @@ export const createNewUser = async (userData, userModel,  cloudinary,
         (user.email = email),
         (user.birthday = birthday),
         (user.age = age),
+        (user.ageLimit = ageLimit),
         (user.gender = gender),
+        (user.distance = distance),
         (user.location = location),
         (user.phone = phone),
         (user.Preference = Preference),

@@ -26,11 +26,17 @@ const userSchema = new mongoose.Schema(
     coverPic: {
       type: String,
     },
+    ageLimit:{
+      type:[],
+    },
     images: {
       type: [String],
     },
     location: {
       type: String,
+    },
+    distance:{
+      type:Number,
     },
     latitude:{
       type:Number,

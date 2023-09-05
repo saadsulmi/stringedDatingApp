@@ -58,15 +58,16 @@ function ChatContainer() {
         xs={12}
         lg={11}
         container
-        sx={{ mb: 10, position: "relative" }}
+        sx={{ mb: 5, position: "relative" }}
       > 
           <Card
       className="CardItems"
       variant="outlined"
       sx={{
         width: "100%",
+        marginTop:"-20px",
         minHeight: "70vh",
-        borderRadius: 6,
+        borderRadius: 3,
         backdropFilter: "brightness(0.9) blur(15px)",
         backgroundColor: "rgba(255, 255, 255, 0.7)",
       }}
