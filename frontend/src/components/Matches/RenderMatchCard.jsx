@@ -1,14 +1,31 @@
 import { Card, CardContent, Grid, Typography, Button } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import Card1 from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import CardContent1 from "@mui/joy/CardContent";
 import KeepMountedModal from "../Modal/KeepMountedModal";
 import { useState } from "react";
+import TextField from '@mui/material/TextField';
 
 function RenderMatchCard({ matches, isLoading }) {
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = useState(null);
+
+  const [searchName, setSearchName] = useState('');
+  const [foundUsers, setFoundUsers] = useState([]);
+  const [matchedUsers,setmatchedUsers]=useState([])
+
+  useEffect(()=>{
+    if(searchName==''){
+      setmatchedUsers([...matches])
+    }else{
+      const filteredUsers = matches.filter((user) =>
+        user.fullName&&user.fullName.toLowerCase().includes(searchName.toLowerCase())
+        );
+        setmatchedUsers([...filteredUsers])
+    }
+  },[searchName])
+
 
   const handleViewProfile = (item) => {
     setOpen(true);
@@ -30,10 +47,20 @@ function RenderMatchCard({ matches, isLoading }) {
             mb: 0,
             borderRadius: 3,
             backdropFilter: "brightness(0.9) blur(15px)",
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
+            backgroundColor: "rgba(255, 255, 255, 0.7)",
             overflow: "hidden",
           }}
         >
+                        <Grid item mt={2} xl={12} >
+            {matches.length>0?(<TextField
+              size="small"
+              sx={{width:{xs:'300px',md:'500px',xl:'700px'},zIndex:'999',background:'white',borderRadius:'5px'}}
+              label="Search by name"
+              variant="filled"
+              value={searchName}
+              onChange={(e) => setSearchName(e.target.value)}
+            />):("")}
+            </Grid>
           <CardContent
             sx={{
               height: "100%",
@@ -58,7 +85,7 @@ function RenderMatchCard({ matches, isLoading }) {
             spacing={2}
             container
           >
-            {matches?.map((item) => {
+            {matchedUsers?.map((item) => {
               return (
                 <Grid
                   key={item._id}
@@ -71,8 +98,8 @@ function RenderMatchCard({ matches, isLoading }) {
                 >
                   <Card1
                     sx={{
-                      width: { xs: '95%', sm: 450, md: 300, lg: 250 },
-                      height: { xs: 500, sm: 500, md: 250, lg: 250 },
+                      width: { xs: '90%', sm: 450, md: 270, lg: 230 },
+                      height: { xs: 500, sm: 500, md: 230, lg: 230 },
                     }}
                   >
                     <CardCover>

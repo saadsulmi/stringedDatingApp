@@ -1,9 +1,10 @@
 import { Card, CardContent, Grid, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card1 from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import CardContent1 from "@mui/joy/CardContent";
+import TextField from '@mui/material/TextField';
 
 function RenderLikedUsersCard({
   handleUnLikeProfile,
@@ -11,6 +12,21 @@ function RenderLikedUsersCard({
   matches,
   user,
 }) {
+
+  const [searchName, setSearchName] = useState('');
+  const [likedUsers,setLikedUsers]=useState([]);
+
+  useEffect(()=>{
+    if(searchName==''){
+      setLikedUsers([...matches])
+    }else{
+      const filteredUsers = matches.filter((user) =>
+        user.fullName&&user.fullName.toLowerCase().includes(searchName.toLowerCase())
+        );
+        setLikedUsers([...filteredUsers])
+    }
+  },[searchName,user,matches])
+
   return (
     <>
       <Grid item xs={2} sm={0}></Grid>
@@ -19,14 +35,25 @@ function RenderLikedUsersCard({
           className="CardItems"
           variant="outlined"
           sx={{
-            height: "38rem",
-            marginTop:"-115px",
+            height: "36rem",
+            marginTop:{ xs:"-80px",sm:"-20px",xl:"-115px"},
+            paddingBottom:"60px",
             borderRadius: 3,
             backdropFilter: "brightness(0.9) blur(15px)",
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
+            backgroundColor: "rgba(255, 255, 255, 0.7)",
             overflow: "hidden",
           }}
         >
+            <Grid item mt={2} xl={12} >
+            {matches.length>0?(<TextField
+              size="small"
+              sx={{width:{xs:'300px',md:'500px',xl:'700px'},zIndex:'999',background:'white',borderRadius:'5px'}}
+              label="Search by name"
+              variant="filled"
+              value={searchName}
+              onChange={(e) => setSearchName(e.target.value)}
+            />):("")}
+            </Grid>
           <CardContent
             sx={{
               height: "100%",
@@ -51,7 +78,7 @@ function RenderLikedUsersCard({
             spacing={2}
             container
           >
-            {matches?.map((item) => {
+            {likedUsers?.map((item) => {
               return (
                 <Grid
                   key={item._id}
@@ -60,12 +87,12 @@ function RenderLikedUsersCard({
                   md={5}
                   lg={5}
                   xl={4}
-                  sx={{ my: 1, mx: { md: 2, lg: 0 } }}
+                  sx={{ my: 0, mx: { md: 2, lg: 0 } }}
                 >
                   <Card1
                     sx={{
-                      width: { xs: '95%', sm: 450, md: 300, lg: 250 },
-                      height: { xs: 500, sm: 500, md: 250, lg: 250 },
+                      width: { xs: '95%', sm: 450, md: 300, lg: 230 },
+                      height: { xs: 500, sm: 500, md: 230, lg: 230 },
                     }}
                   >
                     <CardCover>

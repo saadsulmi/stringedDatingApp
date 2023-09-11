@@ -24,10 +24,25 @@
     bottom: 0;
     margin: auto;
     width: 45vw;
-    max-width: 350px;
+    max-width: 220px;
     height: 45vw;
-    max-height: 350px;
-    background-color: #ff3d71;
+    max-height: 220px;
+    background-color: #c6ffd2;
+    border-radius: 50%;
+    animation: beat 1s infinite;
+  }
+  .heart2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 45vw;
+    max-width: 270px;
+    height: 45vw;
+    max-height: 270px;
+    background-color: #00ff33;
     border-radius: 50%;
     animation: beat 1s infinite;
   }

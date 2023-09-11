@@ -98,7 +98,7 @@ export default function ChatInput({ handleSendMsg, currentChat, user }) {
           />
         
           <Button startIcon={<SendIcon />} onClick={sendChat} />
-          <Button startIcon={<MicIcon />} onClick={handleAudioUpload} />
+          {/* <Button startIcon={<MicIcon />} onClick={handleAudioUpload} /> */}
         </Box>
       </Grid>
     </Grid>

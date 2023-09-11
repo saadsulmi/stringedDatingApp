@@ -4,6 +4,7 @@ import cors from 'cors'
 import connectDB from "./config/mongodb.js";
 import userRoute from './route/userRoute.js'
 import ChatRouter from "./route/ChatRouter.js"
+import paymentRouter from "./route/paymentRouter.js"
 import io from './Sockets/Socket.js'
 config();
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({extended:false}))
 
 app.use('/api',userRoute);
 app.use("/api/chat", ChatRouter);
+app.use("/api/payment", paymentRouter);
 
 
 

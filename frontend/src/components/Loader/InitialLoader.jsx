@@ -4,10 +4,10 @@ import Lottie from "lottie-react";
 
 function InitialLoader(props) {
 
-    const userPresentStyle = { width: '500px' };
-    const userAbsentStyle = { width: '200px', marginTop:"-400px" };
+    const userAbsentStyle = { width: '500px' };
+    const userPresentStyle = { width: '400px', marginTop:"-370px" };
   
-    const selectedStyle = props.user ? userAbsentStyle : userPresentStyle;
+    const selectedStyle = props.user ?userPresentStyle : userAbsentStyle ;
   return (
     <div className='lottieSection'>
       <Lottie style={selectedStyle} animationData={props.image} loop={true} />

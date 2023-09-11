@@ -52,3 +52,9 @@ export const blockUserApi = (data) => axios.put("/api/blockUser", data, headers)
 export const ShowMatchesApi = () => axios.get("/api/matches", headers);
 
 export const showAllLikedUsersApi = () => axios.get("/api/allLikedUsers", headers);
+
+export const showAllInterestedUsersApi = () => axios.get("/api/allInterestedUsers", headers);
+
+export const premiumSubscriptionApi = (data) => axios.post("/api/payment/premium", data, headers);
+
+export const PaymentSuccessApi = (data) => axios.post("/api/paymentVerified", data, headers);

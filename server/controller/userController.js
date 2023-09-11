@@ -202,6 +202,17 @@ export const likeUser =
     }
   };
 
+  export const getAllInterestedUsers = (showAllInterestedUsers,matchModel, userModel,findUserWithId) => async (req, res) => {
+    try {
+      const user = await findUserWithId(req.user.id, userModel);
+      const users = await showAllInterestedUsers(req.user.id, userModel,matchModel,user);
+      console.log("after like or dislike",users);
+      res.status(200).json(users);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   export const blockUser = (userModel, blockAUser) => async (req, res) => {
     try {
       const { User } = req.body;
@@ -209,5 +220,19 @@ export const likeUser =
       res.status(200).json(user);
     } catch (error) {
       res.status(500).json(error);
+    }
+  };
+
+  export const verifyPayment =
+  (verifySubscription, userModel) => async (req, res) => {
+    try {
+      const { pack } = req.body;
+      console.log(req.user.id, "inpayment");
+      const user = await verifySubscription(userModel, pack, req.user.id);
+      console.log(pack);
+      console.log(user);
+      res.json(user);
+    } catch (error) {
+      console.log(error);
     }
   };

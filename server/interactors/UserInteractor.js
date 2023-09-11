@@ -1,5 +1,4 @@
 import path from "path";
-
 export const findUserWithPhone = async (phone, userModel) => {
     try {
       const user = await userModel.findOne({ phone });
@@ -162,6 +161,7 @@ export const createNewUser = async (userData, userModel,  cloudinary,
       throw new Error("failed to like User ");
     }
   };
+
 
 
   export const dislikeAUser = async (user1, user2, userModel, matchModel) => {
@@ -372,6 +372,52 @@ export const createNewUser = async (userData, userModel,  cloudinary,
     }
   };
 
+
+      //interested users
+
+      export const showAllInterestedUsers = async (id, userModel,matchModel,user) => {
+        try {
+
+          let match = await matchModel.find({
+            $or: [
+              {
+                "user1._id": id,
+              },
+              {
+                "user2._id": id,
+              },
+            ],
+            isMatched: false,
+          });
+          
+          let matches = [];
+          
+          match.forEach((arr) => {
+            if (arr.user1._id != id&&arr.user1.liked) {
+              matches.push({ user: arr.user1._id});
+            }
+          });
+          
+          const matchIds = matches.map((match) => match.user);
+          
+          let usersData = await userModel.find({ _id: { $in: matchIds } });
+          
+          let checkerA = await userModel.find({ _id: { $in: user.dislikedUsers } })||[]
+
+          let checkerB = await userModel.find({ _id: { $in: user.likedUsers } })||[]
+
+          const result1 = usersData.filter(userData => !checkerA.some(checkerData => userData._id.equals(checkerData._id)));
+
+          const result2 = result1.filter(userData => !checkerB.some(checkerData => userData._id.equals(checkerData._id)));
+
+          return result2;
+
+        } catch (error) {
+          console.log(error);
+        }
+      }; 
+
+
   export const showAllLikedUsers = async (id, userModel) => {
     try {
       const user = await userModel.findById(id);
@@ -382,6 +428,8 @@ export const createNewUser = async (userData, userModel,  cloudinary,
       console.log(error);
     }
   };
+
+
 
   export const blockAUser = async (user1, user2, userModel) => {
     try {
@@ -409,6 +457,31 @@ export const createNewUser = async (userData, userModel,  cloudinary,
     } catch (error) {
       console.log(error);
       throw new Error("failed to block User");
+    }
+  };
+
+  export const verifySubscription = async (userModel, pack, user) => {
+    try {
+      console.log('hi');
+      const isuserPresent = await userModel.find({
+        _id: user,
+        StringedVipType: {
+          $in: [pack],
+        },
+      });
+      console.log(isuserPresent);
+      if (!isuserPresent.length > 0) {
+            await userModel.findByIdAndUpdate(user, {
+          $push: {
+            StringedVipType: pack,
+          },
+        });
+           const userData = await userModel.findById(user);
+      return userData
+      }
+   
+    } catch (error) {
+      console.log(error, "");
     }
   };
   

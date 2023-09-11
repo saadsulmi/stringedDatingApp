@@ -37,7 +37,7 @@ export default function DiscoverSide() {
     if (user) {
       setTimeout(() => {
         setLoading(false);
-      }, 4000);
+      }, 3000);
     }
   }, [user]);
 
@@ -191,9 +191,11 @@ return({realDistance:Math.round(c * r)+5,userDistance:user.distance});
       console.log(err);
     }
   };
-useEffect(()=>{
-console.log(tost);
-},[tost])
+  
+    useEffect(()=>{
+    console.log(tost);
+    },[tost])
+
   const setToastClosed=()=>{
     settost(initial)
   }

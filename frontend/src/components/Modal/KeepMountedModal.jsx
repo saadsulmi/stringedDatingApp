@@ -25,7 +25,7 @@ export default function KeepMountedModal({user,setUser,open,setOpen,isLoading}) 
             maxWidth:'50rem',
             maxHeight:'20rem',
             borderRadius: "2rem",
-            backgroundColor:"rgba(0,0,0,0.4)"
+            backgroundColor:"rgba(0,0,0,0.8)"
           }
         }
           aria-labelledby="keep-mounted-modal-title"
@@ -95,20 +95,20 @@ export default function KeepMountedModal({user,setUser,open,setOpen,isLoading}) 
                           color:"white",
                           fontFamily: "sans-serif",
                           fontSize: { sm: "0.9rem",md:'1rem' },
-                          marginLeft:{lg:"3.5rem",sm:"7.5rem"}
                         }} 
                         variant="subtitle2"
                       >
                         { user?.location}
                       </Typography>
                  <Typography
+                 
                     sx={{
+                      width:{lg:"500px",sm:"100px"},
                       mt:{lg:3},
-                      
                       color:"white",
                       fontFamily: "sans-serif",
                       fontSize: { sm: "0.8rem",md:'1rem' },
-                      marginLeft:{lg:"0rem",sm:"3.5rem"}
+                      marginLeft:{lg:"-10rem",sm:"3.5rem"}
                     }} 
                     variant="subtitle2"
                   >

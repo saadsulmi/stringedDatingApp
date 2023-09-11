@@ -54,6 +54,24 @@ io.on("connection", (Socket) => {
     
   });
 
+  Socket.on("videoCall", (data) => {
+    console.log("video call", data);
+    const sendUserSocket = onlineUsers.get(data.to);
+    if (sendUserSocket) {
+      data.video = true;
+      data.modal = true;
+      Socket.to(sendUserSocket).emit("incoming-video-call", data);
+    }
+  });
+
+  Socket.on("callRejected", (data) => {
+    const sendUserSocket = onlineUsers.get(data.from);
+    if (sendUserSocket) {
+      console.log("rejected", data);
+      Socket.to(sendUserSocket).emit("videoCallRejected");
+    }
+  });
+
   Socket.on("send-msg", async (data) => {
     console.log(data.message);
     const sendUserSocket = onlineUsers.get(data.to);

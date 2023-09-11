@@ -15,38 +15,29 @@ function LikedUsers() {
   const [isLoading, setLoading] = useState(true);
   const [likedUsers, setLikedUsers] = useState([]);
 const [isEmpty,setIsEmpty]=useState(false)
-  useEffect(() => {
-    showAllLikedUsersApi().then((res) => {
-      if(res.data.length>0){
-        setLikedUsers(res.data);
-      }else{
-        setIsEmpty(true)
-      }
-      
-    });
-  }, [user]);
 
-  useEffect(() => {
-    if (likedUsers) {
-      setLoading(false);
-    }
-  }, [likedUsers]);
+useEffect(() => {
+  if (likedUsers) {
+    setLoading(false);
+  }
+}, [likedUsers]);
 
-  const handleUnLikeProfile = async (item) => {
-    const id = {
-      User: item._id,
-    };
-    try {
-      const { data } = await disLikeUserApi(id);
-      dispatch(SetUserData(data));
-      
-    } catch (error) {
-      console.log(error);
-    }
+const handleUnLikeProfile = async (item) => {
+  const id = {
+    User: item._id,
   };
+  try {
+    const { data } = await disLikeUserApi(id);
+    console.log("i am unliking this user",data);
+    dispatch(SetUserData(data));
+    
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-  const handleBlockUser = async (item) => {
-    const id = {
+const handleBlockUser = async (item) => {
+  const id = {
       User: item._id,
     };
     try {
@@ -57,7 +48,21 @@ const [isEmpty,setIsEmpty]=useState(false)
       console.log(error);
     }
   };
-
+  useEffect(() => {
+    showAllLikedUsersApi().then((res) => {
+      if(res.data.length>0){
+        console.log("habibi iam here");
+        setLikedUsers(res.data);
+        console.log(likedUsers);
+      }else{
+        setTimeout(()=>{
+          setIsEmpty(true)
+        },500)
+      }
+      
+    });
+  }, [user]);
+  
   return (
     <Grid container sx={{ minHeight: "84vh" }}>
     
@@ -74,10 +79,10 @@ const [isEmpty,setIsEmpty]=useState(false)
               variant="outlined"
               sx={{
                 width: "100%",
-                height: "38rem",
+                height: "34rem",
                 borderRadius: 6,
                 backdropFilter: "brightness(0.9) blur(15px)",
-                backgroundColor: "rgba(255, 255, 255, 0.5)",
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
                 display: "flex",
                 justifyContent: "center",
               }}
@@ -87,19 +92,7 @@ const [isEmpty,setIsEmpty]=useState(false)
    container
    sx={{ display: "flex", justifyContent: "center",alignContent:'center',height:'100%' }}
  >
-   <Grid sx={{
-
-   }}>
-     <lottie-player
-       src="https://lottie.host/fd72ffec-6def-4055-bd06-6cbd9333bb25/ajpBAR9H9V.json"
-       background="transparent"
-       speed="1"
-       style={{ width: "20rem", height: "20rem" }}
-       loop
-       autoplay
-     ></lottie-player>
-    
-   </Grid>
+   <Typography variant="overline" sx={{color:'grey',textAlign:'ce'}} >You liked No one so far</Typography>
  </Grid> 
              ):(
             <Loader user={user}/>

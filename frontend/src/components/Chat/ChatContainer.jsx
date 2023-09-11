@@ -80,14 +80,7 @@ function ChatContainer() {
    <Grid sx={{
 
    }}>
-     <lottie-player
-       src="https://lottie.host/ce13803b-d08f-40ca-a716-c9d4c7f9589e/dmdOnSt8T6.json"
-       background="transparent"
-       speed="1"
-       style={{ width: "20rem", height: "20rem" }}
-       loop
-       autoplay
-     ></lottie-player>
+     
      <Grid sx={{
       display:'flex',
       justifyContent:'center'

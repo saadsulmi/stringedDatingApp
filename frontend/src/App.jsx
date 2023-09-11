@@ -5,7 +5,7 @@ import UserPublicRoute from './routes/UserPublicRoute';
 import Loader from './routes/Loader';
 import LandingPage from './pages/LandingPage/LandingPage';
 import UserPrivateRoute from './routes/UserPrivateRoute';
-import AdminLogin from './pages/AdminPages/AdminLogin/AdminLogin';
+import IncomingCallModal from "./components/IncomingCall/IncomingCallModal";
 import { socket } from './Socket';
 import { SetOnlineUserData } from './features/users/OnlineUsers';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,7 +32,9 @@ const Profile = lazy(() => import("./pages/ProfilePgae/Profile"));
 const ChatPage = lazy(() => import("./pages/ChatPage/ChatPage"));
 const MatchesPage = lazy(() => import("./pages/Matches/MatchesPage"));
 const LikedUsersPage = lazy(() =>import("./pages/LikedUsersPage/LikedUsersPage"));
-
+const InterestedPage = lazy(() =>import('./pages/InterestedPage/InterestedPage'));
+const VideoCall = lazy(() => import("./pages/VideoCall/VideoCall"));
+const SubscriptionPage = lazy(() =>import("./pages/SubscriptionPage/SubscriptionPage"));
 
 function App() {
 
@@ -55,7 +57,6 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("user id",user);
       socket.emit("getOnlineUsers", user._id);
       console.log('Emitting socket event every second');
     }, 5000); // 1000 milliseconds = 1 second
@@ -88,6 +89,8 @@ function App() {
         console.log(data,'<=from app');
         dispatch(SetOnlineUserData(data));
       });
+
+      
     }
     return () => {
       socket.off("connect_error");
@@ -95,7 +98,9 @@ function App() {
     };
   }, []);
 
-  
+  const handleClose = () => {
+    setCall((prev) => ({ ...prev, modal: false }));
+  };
 
 
 
@@ -121,15 +126,19 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/LikedUsers" element={<LikedUsersPage />} />
           <Route path="/Matches" element={<MatchesPage />} />
+          <Route path="/Interested" element={<InterestedPage/>} />
           <Route path="/Chat" element={<ChatPage />} />
+          <Route path="/Premium" element={<SubscriptionPage />} />
+          <Route path="/room/:roomId" element={<VideoCall />} />
         </Route>
 
         </Route>
-        <Route path="/admin">
+        {/* <Route path="/admin">
           <Route index element={<AdminLogin/>}/>
         </Route>
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} /> */}
       </Routes>
+      <IncomingCallModal open={call} close={handleClose} />
     </Suspense>
     </>
   )

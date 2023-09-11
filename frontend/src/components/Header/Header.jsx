@@ -46,6 +46,8 @@ export default function Header() {
       .catch((err) => {
         console.log(err);
       });
+    }else{
+      dispatch(ClearUserData());
     }
   }, []);
 
@@ -54,7 +56,8 @@ export default function Header() {
     localStorage.removeItem("authorization.user");
     dispatch(ClearUserData());
     dispatch(Reset_user());
-    navigate('/')
+    navigate('/');
+    window.location.reload();
   };
 
   const handleMenu = (event) => {
@@ -64,7 +67,7 @@ export default function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const SideBarItems = ["Discover","LikedUsers", "Matches", "Chat", "Search", "Premium"];
+  const SideBarItems = ["Discover","LikedUsers", "Matches","Interested", "Chat", "Premium"];
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar sx={{marginBottom:"5px"}} color="transparent" position="static">

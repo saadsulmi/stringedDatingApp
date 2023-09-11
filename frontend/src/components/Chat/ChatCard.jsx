@@ -21,6 +21,10 @@ import { ReadMsgsApi, addNewMSgApi, getAllmsgsApi } from "../../services/api";
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import VIdeoCallModal from "../ErrorModals/VIdeoCallModal";
+import { MdOutlineVideoCall } from "react-icons/md";
+
+
+
 function ChatCard({ currentChat, setCurrentChat, socket,onlineUsers }) {
   const user = useSelector((state) => state.user.user);
   const [messages, setMessages] = useState([]);
@@ -43,6 +47,7 @@ function ChatCard({ currentChat, setCurrentChat, socket,onlineUsers }) {
   const handleClose=()=>{
     setModal(false)
   }
+
   const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
       backgroundColor: '#44b700',
@@ -137,7 +142,7 @@ function ChatCard({ currentChat, setCurrentChat, socket,onlineUsers }) {
 
   const handleVideoCall = () => {
     console.log(user)
-    if(user.StringedVipType.length>0 || user.StringedVipType.includes('gold')){
+    if(user.StringedVipType.length>0 || user.StringedVipType.includes('premium')){
     const data = {
       conversationId: currentChat.conversationId,
       to: currentChat._id,
@@ -297,9 +302,9 @@ function ChatCard({ currentChat, setCurrentChat, socket,onlineUsers }) {
           </Box>
         </Grid>
         <Grid item xs={1}>
-          {/* <Button onClick={handleVideoCall}>
-            <VideoCallIcon sx={{ color: "black" }} />
-          </Button> */}
+          <Button onClick={handleVideoCall}>
+            <MdOutlineVideoCall color="black" size={27} />
+          </Button>
         </Grid>
       </Grid>
       <Grid item xs={12} sx={{ minHeight: "28rem", maxHeight: "28rem" }}>

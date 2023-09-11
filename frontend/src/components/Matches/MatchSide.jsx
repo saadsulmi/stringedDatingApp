@@ -26,7 +26,9 @@ function MatchSide() {
         console.log("my matched users",res.data);
         setMatchedUsers(res.data);
       } else {
-        setIsEmpty(true);
+        setTimeout(()=>{
+          setIsEmpty(true)
+        },500)
       }
     });
   }, [isLoading]);
@@ -47,10 +49,10 @@ function MatchSide() {
               variant="outlined"
               sx={{
                 width: "100%",
-                height: "38rem",
+                height: "34rem",
                 borderRadius: 6,
                 backdropFilter: "brightness(0.9) blur(15px)",
-                backgroundColor: "rgba(255, 255, 255, 0.5)",
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
                 display: "flex",
                 justifyContent: "center",
               }}
@@ -65,16 +67,7 @@ function MatchSide() {
                     height: "100%",
                   }}
                 >
-                  <Grid sx={{}}>
-                    <lottie-player
-                      src="https://lottie.host/fd72ffec-6def-4055-bd06-6cbd9333bb25/ajpBAR9H9V.json"
-                      background="transparent"
-                      speed="1"
-                      style={{ width: "20rem", height: "20rem" }}
-                      loop
-                      autoplay
-                    ></lottie-player>
-                  </Grid>
+                  <Typography variant="overline" sx={{color:'grey',textAlign:'ce'}}>No matches found so far</Typography>
                 </Grid>
               ) : (
                 <Loader user={user} />

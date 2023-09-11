@@ -19,7 +19,9 @@ import {
   deleteUserImage,
   matchedUsers,
   getAllLikedUsers,
-  blockUser
+  getAllInterestedUsers,
+  blockUser,
+  verifyPayment
 } from "../controller/userController.js";
 
 import {
@@ -34,7 +36,9 @@ import {
     deleteImage,
     getMatchedUsers,
     showAllLikedUsers,
-    blockAUser
+    showAllInterestedUsers,
+    blockAUser,
+    verifySubscription
 } from '../interactors/UserInteractor.js'
 
 import{
@@ -129,6 +133,10 @@ userRoute.get("/matches", matchedUsers(getMatchedUsers, matchModel, userModel));
 
 userRoute.get("/allLikedUsers", getAllLikedUsers(showAllLikedUsers, userModel));
 
+userRoute.get("/allInterestedUsers", getAllInterestedUsers(showAllInterestedUsers,matchModel, userModel,findUserWithId));
+
 userRoute.put("/blockUser", blockUser(userModel, blockAUser));
+
+userRoute.post("/paymentVerified", verifyPayment(verifySubscription, userModel));
 
 export default userRoute
