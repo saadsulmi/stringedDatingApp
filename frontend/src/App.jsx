@@ -84,7 +84,11 @@ function App() {
       socket.on("error", (error) => {
         console.log("Socket error:", error);
       });
-     
+      
+      socket.on("incoming-video-call", (data) => {
+        setCall(data);
+      });
+
       socket.on("onlineUsersList", (data) => {
         console.log(data,'<=from app');
         dispatch(SetOnlineUserData(data));

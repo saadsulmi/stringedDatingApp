@@ -169,7 +169,7 @@ const SubscriptionDetails = () => {
                 alignContent: "center",
               }}
             >
-             <Grid item xl={4}>
+             <Grid item xs={8} xl={4}>
              <Typography
                 variant="subtitle2"
                 component="ul"
