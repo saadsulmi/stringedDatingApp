@@ -5,7 +5,7 @@ import UserPublicRoute from './routes/UserPublicRoute';
 import Loader from './routes/Loader';
 import LandingPage from './pages/LandingPage/LandingPage';
 import UserPrivateRoute from './routes/UserPrivateRoute';
-import IncomingCallModal from "./components/IncomingCall/IncomingCallModal";
+
 import { socket } from './Socket';
 import { SetOnlineUserData } from './features/users/OnlineUsers';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,7 +27,6 @@ const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 const Register = lazy(() => import("./pages/RegisterAccount/Register"));
 const MobileLogin = lazy(()=>import('./pages/MobilePage/MobileLogin'))
 const CreateAccount = lazy(() => import("./pages/CreateAccount/CreateAccount"));
-const RegisterPage = lazy(()=>import('./pages/RegisterAccount/DataRegister'))
 const Profile = lazy(() => import("./pages/ProfilePgae/Profile"));
 const ChatPage = lazy(() => import("./pages/ChatPage/ChatPage"));
 const MatchesPage = lazy(() => import("./pages/Matches/MatchesPage"));
@@ -35,7 +34,7 @@ const LikedUsersPage = lazy(() =>import("./pages/LikedUsersPage/LikedUsersPage")
 const InterestedPage = lazy(() =>import('./pages/InterestedPage/InterestedPage'));
 const VideoCall = lazy(() => import("./pages/VideoCall/VideoCall"));
 const SubscriptionPage = lazy(() =>import("./pages/SubscriptionPage/SubscriptionPage"));
-
+const IncomingCallModal = lazy(() =>import("./components/IncomingCall/IncomingCallModal"));
 function App() {
 
 

@@ -27,7 +27,7 @@ import dayjs from "dayjs";
 import AddIcon from "@mui/icons-material/Add";
 import WineBar from "@mui/icons-material/WineBar";
 import SmokingRoomsIcon from "@mui/icons-material/SmokingRooms";
-import GenderIcon from "../icons/GenderIcon";
+import GenderIcon from "../Icons/GenderIcon";
 import RelationIcon from "../Icons/RelationIcon";
 import ReligionIcon from "../Icons/ReligionIcon";
 import ModalEditUser from "../EditProfile/ModalEditUser";

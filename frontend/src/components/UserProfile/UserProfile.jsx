@@ -14,9 +14,9 @@ import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import WineBar from "@mui/icons-material/WineBar";
 import SmokingRoomsIcon from "@mui/icons-material/SmokingRooms";
-import GenderIcon from "../icons/GenderIcon";
-import RelationIcon from "../icons/RelationIcon";
-import ReligionIcon from "../icons/ReligionIcon";
+import GenderIcon from "../Icons/GenderIcon";
+import RelationIcon from "../Icons/RelationIcon";
+import ReligionIcon from "../Icons/ReligionIcon";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function UserProfile({ edit, setEdit }) {

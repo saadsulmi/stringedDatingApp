@@ -17,6 +17,7 @@ function RenderLikedUsersCard({
   const [likedUsers,setLikedUsers]=useState([]);
 
   useEffect(()=>{
+    console.log("uchiha uchiha");
     if(searchName==''){
       setLikedUsers([...matches])
     }else{
