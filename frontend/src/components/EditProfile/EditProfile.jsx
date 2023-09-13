@@ -29,7 +29,7 @@ function EditProfile({ edit, setEdit }) {
     gender: user.gender || "Your Gender",
     location: user.location,
     distance:user.distance||0,
-    ageLimit:[user.age,user.age+5],
+    ageLimit:[18,99],
     phone: user.phone,
     Preference: user.Preference,
     profilePic: user.profilePic || "/avatar.jpg",

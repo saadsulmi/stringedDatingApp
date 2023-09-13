@@ -1,8 +1,8 @@
 import { io } from "socket.io-client"
 
-// const URL = 
+const URL = import.meta.env.VITE_SERVER_URL
 
-export const socket = io('http://localhost:8000', {
+export const socket = io(URL, {
   autoConnect: false,
   secure: true,
 })

@@ -179,3 +179,8 @@
 .textfieldlabel{
   color: white !important;
 }
+
+.MuiButton-disabled {
+  background-color: #FF0000; /* Change this to your desired color */
+  color: #FFFFFF; /* Change this to your desired text color */
+}

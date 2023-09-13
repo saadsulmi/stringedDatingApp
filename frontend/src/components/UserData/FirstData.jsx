@@ -379,55 +379,6 @@ function FirstData({
               )}
             </Grid>
 
-            <Grid>
-                  <Typography
-                     sx={{ marginTop:"20px", fontSize:"18px" }}
-                  >
-                    {userData.distance === 0 ? "Show Everyone in Earth" : `Show Strings Upto ${userData.distance} KM`} 
-                  </Typography>
-                <Box sx={{ width: 500 }}>
-
-                  <Slider
-                    defaultValue={10}
-                    value={userData.distance}
-                    onChange={(e) =>
-                      setUserData((prev) => ({
-                        ...prev,
-                        distance : e.target.value,
-                      }))
-                    }
-                    step={10}
-                    valueLabelDisplay="auto"
-                  />
-
-                </Box>
-            </Grid>
-
-            <Grid item xs={12} alignItems={"center"}>
-                  <Typography
-                     sx={{ marginTop:"20px", fontSize:"18px" }}
-                  >
-                    {userData.ageLimit[0] === userData.ageLimit[1] ? `Show Strings with Age ${userData.ageLimit[0]}` : `Show strings with Age between ${userData.ageLimit[0]} and ${userData.ageLimit[1]}`} 
-                  </Typography>
-                  <Box sx={{ padding:{xs:"0",xl:"0 200px 0 200px"} }}>
-                      <Slider
-                        getAriaLabel={() => 'Temperature range'}
-                        value={userData.ageLimit}
-                        onChange={(event, newValue) => {
-                          console.log("this is the new value",newValue);
-                          setUserData((prev) => ({
-                            ...prev,
-                            ageLimit : newValue,
-                          }))
-                        }}
-                        min={18}
-                        max={99}
-                        valueLabelDisplay="auto"
-                        disableSwap
-                      />
-                    </Box>
-            </Grid>
-
 
             <Grid container direction={"column"} item xs={12} sm={12} alignItems={"center"}>
               <Grid item container xs={9}>
@@ -528,8 +479,8 @@ function FirstData({
           <Grid item xl={12}> 
           <Button
             color="warning"
-            variant="outlined"
-            sx={{width:"30%",background:"green"}}
+            variant="contained"
+            sx={{width:"30%"}}
             onClick={handleSubmit}
           >
             {loading ? "loading" : "Continue"}

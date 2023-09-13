@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { SetUserData } from "../../features/users/UserReducer";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { style } from "@mui/system";
 
 const SubscriptionDetails = () => {
   let query = new URLSearchParams(window.location.search);
@@ -37,22 +38,7 @@ const SubscriptionDetails = () => {
       }
     }
   }, [user]);
-  // const handleGold = async () => {
-  //   try {
-  //     const email = {
-  //       email: user.email,
-  //     };
-  //     GoldSubscriptionApi(email)
-  //       .then((res) => {
-  //         window.location.href = res.data.url;
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error occurred during API call:", error);
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+
 
   const handlePremium = async () => {
     try {
@@ -70,6 +56,25 @@ const SubscriptionDetails = () => {
       console.log(error);
     }
   };
+
+  const gradientBorder = {
+    border: 'solid 2px',
+    backgroundImage: 'linear-gradient(90deg, #1C1C1C 0%, #FCC201 100%)',
+    borderRadius: '10px',
+  }
+
+  const styles = {
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    width: '400px',
+    height: '500px',
+    background: 'rgba(0,0,0,0.9)', // Vertical gradient
+    borderRadius: '10px',
+    transition: 'background 5s ease', // Adjust transition duration and easing function
+    
+  }
+
   return (
     <Grid
       item
@@ -86,11 +91,13 @@ const SubscriptionDetails = () => {
           minHeight: "70vh",
           borderRadius: 6,
           backdropFilter: "brightness(0.9) blur(15px)",
-          backgroundColor: "rgba(255, 255, 255, 0.7)",
+          backgroundColor: "rgba(255, 255, 255,0.7)",
         }}
       >
-        <CardContent>
-          <Grid container>
+        <CardContent sx={{display:'flex',justifyContent:'center'}} >
+          <Grid container sx={styles}>
+            {/* this is the backgroun */}
+            <Grid item container sx={{width: '320px', height: '450px',borderRadius:'10px', border:'solid 1px #FCC201', }}>
             <Grid
               item
               xs={12}
@@ -103,113 +110,35 @@ const SubscriptionDetails = () => {
               }}
             >
               <Typography
-                variant="h4"
+                variant="overline"
                 noWrap
-                component="a"
-                href="/"
+                mt={5}
                 sx={{
-                  mr: 2,
+                  fontSize:'20px',
                   display: { xs: "flex", md: "flex" },
-                  letterSpacing: ".3rem",
-                  color: "inherit",
+                  letterSpacing: ".2rem",
+                  color: "white",
                   textDecoration: "none",
                 }}
               >
                 Stringed Premium
               </Typography>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignContent: "center",
-              }}
-            >
-            </Grid>
-           
-            <Grid
-              item
-              xs={12}
-              sx={{
-                my: 2,
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignContent: "center",
-              }}
-            >
-            
-            </Grid>
-
-            <Grid
-              item
-              xs={12}
-              sx={{
-                mt: 4,
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignContent: "center",
-              }}
-            >
-              <Typography variant="h6" noWrap sx={{ color: "grey", mb: 2 }}>
-                <b>PREMIUM SUBSCRIPTION</b>
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignContent: "center",
-              }}
-            >
-             <Grid item xs={8} xl={4}>
+            <Grid item xs={12} xl={12} sx={{marginTop:{xs:'-20px',xl:'-30px'}, padding:'20px'}}>
              <Typography
                 variant="subtitle2"
-                component="ul"
-                sx={{ color: "grey" }}
+                sx={{ color: "grey",letterSpacing:'0.2rem' }}
               >
-                <li>
-                  Video Call - Gold tier subscribers can initiate video calls
-                  with Matched users.
-                </li>
-                <li>
-                  Advanced Search Functionality Platinum tier subscribers can
-                  enjoy advanced search capabilities. They can search for other
-                  users based on criteria such as name, age, interests,
-                  location, and any other relevant information. This feature
-                  enables them to find potential matches more specifically.
-                </li>
-              </Typography>
-             </Grid>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sx={{
-                my: 2,
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignContent: "center",
-              }}
-            >
-              {user?.StringedVipType.includes("premium") ? (
+                  Video Call : Premium subscribers can initiate video calls with Matched users
+                  Advanced Filter Functionality : Premium subscribers can enjoy advanced filter capabilities. They can filter users based on criteria such as Age and Location
+              </Typography> 
+              {user?.StringedVipType?.includes("premium") ||
+              user?.StringedVipType.includes("premium") ? (
                 <Button
-                  sx={{width:"300px",}}
-                  
-                  variant="contained"
-                  color="inherit"
+                sx={{marginTop:'50px'}}
+                  variant="outlined"
                   large
                   fullWidth
-                  disabled
-                  onClick={handlePremium}
                 >
                   You have Premium Access
                 </Button>
@@ -221,19 +150,22 @@ const SubscriptionDetails = () => {
                   fullWidth
                   onClick={handlePremium}
                   sx={{
-                    width:"300px",
-                    backgroundColor: "grey",
+                    backgroundColor: "goldenrod",
+                    marginTop:'50px',
                     color: "black",
                     "&:hover": {
                       backgroundColor: "black",
-                      color: "white",
+                      color: "goldenrod",
                     },
                   }}
                 >
-                  Subscribe Now for just Rs 500
+                  Access Premium for just Rs 500
                 </Button>
               )}
+             </Grid>
+      
             </Grid>
+            
           </Grid>
         </CardContent>
       </Card>

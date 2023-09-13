@@ -9,9 +9,17 @@ import io from './Sockets/Socket.js'
 config();
 
 const app = express();
-const PORT=process.env.PORT
+const PORT=process.env.PORT || 8000
 
-app.use(cors())
+const requestPort=process.env.RQST_PORT
+
+const corsOptions = {
+  origin: requestPort,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions))
 
 
 app.use(express.json());

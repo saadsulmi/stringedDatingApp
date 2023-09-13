@@ -59,7 +59,7 @@ function App() {
     const interval = setInterval(() => {
       socket.emit("getOnlineUsers", user._id);
       console.log('Emitting socket event every second');
-    }, 5000); // 1000 milliseconds = 1 second
+    }, 2000); // 1000 milliseconds = 1 second
 
     return () => {
       // Clear the interval when the component unmounts to avoid memory leaks
@@ -130,7 +130,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/LikedUsers" element={<LikedUsersPage />} />
           <Route path="/Matches" element={<MatchesPage />} />
-          <Route path="/Interested" element={<InterestedPage/>} />
+          <Route path="/Request" element={<InterestedPage/>} />
           <Route path="/Chat" element={<ChatPage />} />
           <Route path="/Premium" element={<SubscriptionPage />} />
           <Route path="/room/:roomId" element={<VideoCall />} />

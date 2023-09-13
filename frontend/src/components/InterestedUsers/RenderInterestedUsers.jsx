@@ -41,35 +41,48 @@ function RenderInterestedUsers({
         console.log(interestedUsers);
       },[searchName,user,matches])
 
+      const search={
+        height: "36rem",
+        marginTop:{ xs:"-80px",sm:"-20px",xl:"-115px"},
+        paddingBottom:"60px",
+        borderRadius: 3,
+        backdropFilter: "brightness(0.9) blur(15px)",
+        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        overflow: "hidden",
+      }
+      const noSearch={
+        height: "36rem",
+        marginTop:{ xs:"-80px",sm:"-20px",xl:"-115px"},
+        paddingBottom:"60px",
+        borderRadius: 3,
+        backdropFilter: "brightness(0.9) blur(15px)",
+        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        overflow: "hidden",
+      }
+
+      let myCardSx
+
+      matches&&matches.length>6?myCardSx=search:myCardSx=noSearch
+
     return (
       <>
       
-        <Grid item xs={1} xl={2}  sm={0}>
-              
-        </Grid>
+        <Grid item xs={1}  sm={0}></Grid>
         <Grid item sm={8.2} lg={12} sx={{ my: -6 }}>
         <Card
           className="CardItems"
           variant="outlined"
-          sx={{
-            minWidth:{xs:'400px'},
-            height: {xs:"40rem",xl:"38rem"},
-            marginTop:{xs:'200',xl:"-115px"},
-            borderRadius: 3,
-            backdropFilter: "brightness(0.9) blur(15px)",
-            backgroundColor: "rgba(255, 255, 255, 0.7)",
-            overflow: "hidden",
-          }}
+          sx={search}
         >
-                        <Grid item mt={2} xl={12} >
-            {matches.length>0?(<TextField
-              size="small"
-              sx={{width:{xs:'300px',md:'500px',xl:'700px'},zIndex:'999',background:'white',borderRadius:'5px'}}
-              label="Search by name"
-              variant="filled"
-              value={searchName}
-              onChange={(e) => setSearchName(e.target.value)}
-            />):("")}
+            <Grid item mt={2} xl={12} >
+              {matches.length>0?(<TextField
+                size="small"
+                sx={{width:{xs:'300px',md:'500px',xl:'700px'},zIndex:'999',background:'white',borderRadius:'5px'}}
+                label="Search by name"
+                variant="filled"
+                value={searchName}
+                onChange={(e) => setSearchName(e.target.value)}
+              />):("")}
             </Grid>
             <CardContent
               sx={{
@@ -92,7 +105,7 @@ function RenderInterestedUsers({
                 },
               }}
               component={Grid}
-              spacing={2}
+              spacing={{}}
               container
             >
               {interestedUsers?.map((item) => {
@@ -125,26 +138,24 @@ function RenderInterestedUsers({
                         sx={{ justifyContent: "flex-end", color: "white" }}
                       >
                        <Grid item xl={12} marginTop={12}>
-                        <Typography variant="h6" fontSize="lg" mb={1} onClick={() => handleViewProfile(item)} >
+                        <Typography level="h2" fontSize="lg" mb={1} onClick={() => handleViewProfile(item)} >
                           {item.fullName}
                         </Typography>
                        <Button
-                          sx={{width:'90px', m: 1 }}
-                          
+        
+                          sx={{backgroundColor: "rgba(0, 120, 200,  0.3)",width:{xs:'150px',xl:"90px"}, mx: 1, }}
                           color="info"
                           variant="contained"
                           onClick={() => handleLikeProfile(item)}
                         >
-                          {/* <AiFillHeart size={25} /> */}
                           Match
                         </Button>
                        <Button
-                          sx={{width:'90px', mx: 1 }}
+                          sx={{backgroundColor: "rgba(200, 100, 0,  0.3)",width:{xs:'150px',xl:"90px"}, mx: 1 }}
                           color="error"
                           variant="contained"
                           onClick={() => handleUnLikeProfile(item)}
                         >
-                          {/* <FaHeartBroken size={24}/> */}
                           Reject
                         </Button>
                        

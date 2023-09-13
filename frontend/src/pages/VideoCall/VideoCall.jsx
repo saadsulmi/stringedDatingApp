@@ -10,7 +10,7 @@ const VideoCall = () => {
   const user = useSelector((state) => state.user.user);
   const { roomId } = useParams();
   const dispatch = useDispatch();
-  const [user2,setUser2]=useState(null)
+  const [user2,setUser2]=useState(null);
 
   useEffect(() => {
     document.body.style.backgroundColor = "white";
@@ -24,7 +24,7 @@ const VideoCall = () => {
   useEffect(() => {
     if(socket){
        socket.on("videoCallRejected", () => {
-      console.error('hii call is being rejected');
+      console.error('call rejected');
       window.close()
     })
     }
@@ -35,7 +35,7 @@ const VideoCall = () => {
 
   const myMeeting = async (element) => {
     const appID = 2086715001;
-    const serverSecret = 'c961074c0ad4b8c675c569f012e1dcc4';
+    const serverSecret = import.meta.env.VITE_ZEGOCLOUD_SECRETE;
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,

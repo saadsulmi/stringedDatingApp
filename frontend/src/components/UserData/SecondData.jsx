@@ -435,8 +435,8 @@ function SecondData({
                 <Button
                   size="large"
                   color="warning"
-                  variant="outlined"
-                fullWidth
+                  variant="contained"
+                  sx={{width:"30%"}}
                   onClick={handleImageSubmit}
                 >
                   {loading ? "loading" : "Continue"}

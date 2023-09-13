@@ -52,7 +52,8 @@ function MatchSide() {
                 height: "34rem",
                 borderRadius: 6,
                 backdropFilter: "brightness(0.9) blur(15px)",
-                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                marginTop:{ xs:"-80px",sm:"-20px",xl:"-35px"},
+                backgroundColor: "rgba(255, 255, 255, 0.8)",
                 display: "flex",
                 justifyContent: "center",
               }}

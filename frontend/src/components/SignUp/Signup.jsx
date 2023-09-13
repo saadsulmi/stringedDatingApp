@@ -53,10 +53,10 @@ function SignUp() {
         theme='filled_black'
         width={100}
         padding={0}
-        shape='pill'
+        shape='rectangular'
         text='signup_with'
         size='large'
-
+        useOneTap
           onSuccess={credentialResponse => {
             let decoded=jwt_decode(credentialResponse.credential);
             console.log(decoded);

@@ -28,6 +28,7 @@ import React from "react";
 import { deleteImageApi, fetchLocationApi } from "../../services/api";
 import CloseIcon from "@mui/icons-material/Close";
 import { validateDate } from "@mui/x-date-pickers/internals";
+import { useSelector } from "react-redux";
 function EditProfileCard({
   validateInputs,
   userData,
@@ -141,6 +142,8 @@ const handleDeleteImage=async(path)=>{
     }));
   };
 
+  const user = useSelector(state=>state.user.user);
+  console.log(user,"user at edit prof");
   return (
     <Card
       variant="outlined"
@@ -303,63 +306,127 @@ const handleDeleteImage=async(path)=>{
               <Typography sx={{ color: "red" }}>{error.bio}</Typography>
             )}
           </Grid>
-
-        <Grid container item xs={12} xl={12} justifyContent={"center"}>
-        <Grid item xs={12}>
-            <Typography
-                     sx={{ marginTop:"20px", fontSize:"18px" }}
-                  >
-                    {userData.distance === 0 ? "Show Everyone" : `Show Strings Upto ${userData.distance} KM`} 
-                  </Typography>
-          </Grid>
-          <Grid item xs={12} justifyContent={"center"}  >
-                <Box
-                sx={{
-                  padding: { sm: '0', xl:"0 300px 0 300px"}
-                }} 
-                >
-
-                    <Slider
-                      defaultValue={userData.distance}
-                      value={userData.distance}
-                      onChange={(e) =>
-                        setUserData((prev) => ({
-                          ...prev,
-                          distance : e.target.value,
-                        }))
-                      }
-                      step={10}
-                      valueLabelDisplay="auto"
-                    />
-
-                    </Box>
-          </Grid>
-
-          <Grid item xs={12} alignItems={"center"}>
-                  <Typography
-                     sx={{ marginTop:"20px", fontSize:"18px" }}
-                  >
-                    {userData.ageLimit[0] === userData.ageLimit[1] ? `Show Strings with Age ${userData.ageLimit[0]}` : `Show strings with Age between ${userData.ageLimit[0]} and ${userData.ageLimit[1]}`} 
-                  </Typography>
-                  <Box sx={{ padding:{xs:"0",xl:"0 200px 0 200px"} }}>
-                      <Slider
-                        getAriaLabel={() => 'Temperature range'}
-                        value={userData.ageLimit}
-                        onChange={(event, newValue) => {
-                          console.log("this is the new value",newValue);
-                          setUserData((prev) => ({
-                            ...prev,
-                            ageLimit : newValue,
-                          }))
-                        }}
-                        min={18}
-                        max={99}
-                        valueLabelDisplay="auto"
-                        disableSwap
-                      />
-                    </Box>
-            </Grid>
-        </Grid>
+                  {/* distance to filter */}
+                  {user&&user.StringedVipType==='premium'||user.StringedVipType.length>0?(
+                    <Grid container item xs={12} xl={12} justifyContent={"center"}>
+                    <Grid item xs={12}>
+                        <Typography
+                                sx={{ marginTop:"20px", fontSize:"18px" }}
+                              >
+                                {userData.distance === 0 ? "Show Everyone" : `Show Strings Upto ${userData.distance} KM`} 
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} justifyContent={"center"}  >
+                            <Box
+                            sx={{
+                              padding: { sm: '0', xl:"0 300px 0 300px"}
+                            }} 
+                            >
+          
+                                <Slider
+                                  defaultValue={userData.distance}
+                                  value={userData.distance}
+                                  onChange={(e) =>
+                                    setUserData((prev) => ({
+                                      ...prev,
+                                      distance : e.target.value,
+                                    }))
+                                  }
+                                  step={10}
+                                  valueLabelDisplay="auto"
+                                />
+          
+                                </Box>
+                      </Grid>
+          
+                    {/* age filteration */}
+                    <Grid item xs={12} alignItems={"center"}>
+                            <Typography
+                               sx={{ marginTop:"20px", fontSize:"18px" }}
+                            >
+                              {userData.ageLimit[0] === 18 && userData.ageLimit[1]===99 ? `Show Strings with all Age group` : `Show strings with Age between ${userData.ageLimit[0]} and ${userData.ageLimit[1]}`} 
+                            </Typography>
+                            <Box sx={{ padding:{xs:"0",xl:"0 200px 0 200px"} }}>
+                                <Slider
+                                  getAriaLabel={() => 'Temperature range'}
+                                  value={userData.ageLimit}
+                                  onChange={(event, newValue) => {
+                                    console.log("this is the new value",newValue);
+                                    setUserData((prev) => ({
+                                      ...prev,
+                                      ageLimit : newValue,
+                                    }))
+                                  }}
+                                  min={18}
+                                  max={99}
+                                  valueLabelDisplay="auto"
+                                  disableSwap
+                                />
+                              </Box>
+                      </Grid>
+                  </Grid>
+                  ):(
+                    <Grid container item xs={12} xl={12} justifyContent={"center"}>
+                    <Grid item xs={12}>
+                        <Typography
+                                sx={{ marginTop:"20px", fontSize:"18px" }}
+                              >
+                                Need premium account to filter by distance
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} justifyContent={"center"}  >
+                            <Box
+                            sx={{
+                              padding: { sm: '0', xl:"0 300px 0 300px"}
+                            }} 
+                            >
+          
+                                <Slider
+                                  defaultValue={userData.distance}
+                                  value={userData.distance}
+                                  onChange={(e) =>
+                                    setUserData((prev) => ({
+                                      ...prev,
+                                      distance : e.target.value,
+                                    }))
+                                  }
+                                  disabled
+                                  step={10}
+                                  valueLabelDisplay="auto"
+                                />
+          
+                                </Box>
+                      </Grid>
+          
+                    {/* age filteration */}
+                    <Grid item xs={12} alignItems={"center"}>
+                            <Typography
+                               sx={{ marginTop:"20px", fontSize:"18px" }}
+                            >
+                              Need premium account to filter by Age
+                            </Typography>
+                            <Box sx={{ padding:{xs:"0",xl:"0 200px 0 200px"} }}>
+                                <Slider
+                                  getAriaLabel={() => 'Temperature range'}
+                                  value={userData.ageLimit}
+                                  onChange={(event, newValue) => {
+                                    console.log("this is the new value",newValue);
+                                    setUserData((prev) => ({
+                                      ...prev,
+                                      ageLimit : newValue,
+                                    }))
+                                  }}
+                                  min={18}
+                                  max={99}
+                                  valueLabelDisplay="auto"
+                                  disabled
+                                  disableSwap
+                                />
+                              </Box>
+                      </Grid>
+                  </Grid>
+                  )}
+        
 
 
           <Grid

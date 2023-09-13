@@ -7,12 +7,13 @@ import { useNavigate } from "react-router-dom";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import { Typography } from "@mui/material";
 export default function Sidebar() {
   const navigate=useNavigate()
 
   const navItems=[
     "Discover",
-    "Interested",
+    "Match Request",
     "LikedUsers",
     "Matches",
     "Chat",
@@ -31,7 +32,7 @@ export default function Sidebar() {
       sx={{
         borderRadius: 6,
         backdropFilter: 'brightness(0.9) blur(15px)',
-        backgroundColor: 'rgba(255, 255, 255, 1)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
       }}
     >
       <CardContent>
@@ -39,8 +40,9 @@ export default function Sidebar() {
           {navItems.map(item=>{
             return(
                  <ListItem key={item}>
-            <Button component="a" onClick={()=>navigate(`/${item}`)} fullWidth>
-              <ListItemText sx={{ color: 'black' }} primary={item} />
+            <Button  component="a" onClick={()=>navigate(`/${item==='Match Request'?'Request':item}`)} fullWidth>
+              <Typography  sx={{ color: 'white', letterSpacing: '3px' }} >{item}</Typography>
+              <ListItemText />
             </Button>
           </ListItem>
             )

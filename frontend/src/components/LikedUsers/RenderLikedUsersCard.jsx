@@ -40,7 +40,7 @@ function RenderLikedUsersCard({
             paddingBottom:"60px",
             borderRadius: 3,
             backdropFilter: "brightness(0.9) blur(15px)",
-            backgroundColor: "rgba(255, 255, 255, 0.7)",
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
             overflow: "hidden",
           }}
         >

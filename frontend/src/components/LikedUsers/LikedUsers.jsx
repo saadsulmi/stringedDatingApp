@@ -80,9 +80,10 @@ const handleBlockUser = async (item) => {
               sx={{
                 width: "100%",
                 height: "34rem",
+                marginTop:{ xs:"-80px",sm:"-20px",xl:"-35px"},
                 borderRadius: 6,
                 backdropFilter: "brightness(0.9) blur(15px)",
-                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                backgroundColor: "rgba(255, 255, 255, 0.8)",
                 display: "flex",
                 justifyContent: "center",
               }}
