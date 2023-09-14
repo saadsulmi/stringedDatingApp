@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 import { Typography, Grid } from "@mui/material";
-import "@fontsource/Roboto";
 
 const Phone = ({ changePhone,error,setError }) => {
   const [value, setValue] = React.useState("");
