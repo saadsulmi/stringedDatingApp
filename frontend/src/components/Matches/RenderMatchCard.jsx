@@ -60,7 +60,7 @@ function RenderMatchCard({ matches, isLoading }) {
           variant="outlined"
           sx={{
             height: '38rem',
-            marginTop:"-115px",
+            marginTop:{xs:"-110px",md:"-115px"},
             mb: 0,
             borderRadius: 3,
             backdropFilter: "brightness(0.9) blur(15px)",
@@ -114,7 +114,21 @@ function RenderMatchCard({ matches, isLoading }) {
           <CardContent
             sx={{
               height: "100%",
-              overflowX:'unset',
+              overflowY: {xs:"scroll",md:"unset"},
+              "&::-webkit-scrollbar": {
+                width: "7px",
+              },
+              "&::-webkit-scrollbar-track": {
+                background: "transparent",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "darkgrey",
+                borderRadius: "2rem",
+              },
+              "&::-webkit-scrollbar-thumb:hover": {
+                backgroundColor: "grey",
+                borderRadius: "2rem",
+              },
             }}
             component={Grid}
             spacing={2}

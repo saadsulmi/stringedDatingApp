@@ -127,7 +127,21 @@ function RenderInterestedUsers({
           <CardContent
             sx={{
               height: '100%',
-              overflowX: 'unset',
+              overflowY: {xs:"scroll",md:"unset"},
+              "&::-webkit-scrollbar": {
+                width: "7px",
+              },
+              "&::-webkit-scrollbar-track": {
+                background: "transparent",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "darkgrey",
+                borderRadius: "2rem",
+              },
+              "&::-webkit-scrollbar-thumb:hover": {
+                backgroundColor: "grey",
+                borderRadius: "2rem",
+              },
             }}
             component={Grid}
             spacing={{}}

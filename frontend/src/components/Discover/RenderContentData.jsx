@@ -23,7 +23,7 @@ function RenderContentData({
   dislikeHandler,
   skipHandler
 }) {
-  
+
   const [openModal, setOpenModal] = useState(false);
   const [users, setUsers] = useState("");
  
@@ -130,6 +130,8 @@ function RenderContentData({
                         alignContent: "center",
                         alignItems: "center",
                         justifyContent: "space-around",
+                        flexDirection:{xs:'column',md:"row"},
+
                       }}
                     >
                       <Button
@@ -137,10 +139,9 @@ function RenderContentData({
                         color="error"
                         
                         variant="contained"
-                        sx={{ borderRadius: "1rem", px: { xs: 1, lg: 4 } }}
-                        size="medium
-                            
-                            "
+                        sx={{ borderRadius: "1rem", px: { xs: 4, lg: 4 },
+                            marginBottom:{xs:'8px',md:''}}}
+                        size="large"
                         onClick={() => dislikeHandler(user._id)}
                       >
                         Not Interested
@@ -150,8 +151,11 @@ function RenderContentData({
                         color="warning"
                         
                         variant="contained"
-                        sx={{ borderRadius: "1rem", px: { xs: 1, lg: 4 } }}
-                        size="medium"
+                        sx={{ borderRadius: "1rem", px: { xs: 4, lg: 4 },
+                            marginBottom:{xs:'8px',md:''},
+                            width:{xs:'220px',md:"90px"}
+                          }}
+                        size="large"
                         onClick={()=>skipHandler()} 
                       >
                         Skip
@@ -160,8 +164,10 @@ function RenderContentData({
                         startIcon={<ThumbUpIcon />}
                         color="success"
                         variant="contained"
-                        sx={{ borderRadius: "1rem", px: { xs: 1, lg: 4 } }}
-                        size="medium"
+                        sx={{ borderRadius: "1rem", px: { xs: 6, lg: 4 },
+                            marginBottom:{xs:'8px',md:''},
+                          }}
+                        size="large"
                         onClick={() => likeHandler(user._id)}
                       >
                         Interested
