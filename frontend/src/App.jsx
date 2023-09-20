@@ -57,7 +57,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       socket.emit("getOnlineUsers", user._id);
-      console.log('Emitting socket event every second');
+      // console.log('Emitting socket event every second');
     }, 2000); // 1000 milliseconds = 1 second
 
     return () => {

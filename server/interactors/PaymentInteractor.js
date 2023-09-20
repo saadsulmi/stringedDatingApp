@@ -4,7 +4,7 @@ export const stripePayment = async (stripe, email, price,pack) => {
       submit_type: 'pay',
       line_items: [
         {
-          // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+          
           price: `${price}`,
           quantity:1
         },

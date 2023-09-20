@@ -77,7 +77,6 @@ function FirstData({
             latitude : latitude,
             longitude : longitude
           }))
-          console.log(latitude,longitude);
           fetchLocationApi(latitude, longitude)
             .then((res) => res.json())
             .then((data) => {

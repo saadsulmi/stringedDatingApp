@@ -125,9 +125,7 @@ function EditProfile({ edit, setEdit }) {
       }
     }
 
-    for (let i of formData.entries()) {
-      console.log(i);
-    }
+
     try {
       const { data } = await editUserDataApi(formData);
       dispatch(SetUserData(data));
@@ -138,12 +136,11 @@ function EditProfile({ edit, setEdit }) {
       setLoader(false);
     }
   };
-  useEffect(() => {
-    console.log(image0.current.files);
-  }, [image0, image1, image2]);
+
+
 
   const validateInputs = () => {
-    console.log('inHere to validate',error);
+
     const regexEmail =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     // setUserData((prev) => ({

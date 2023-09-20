@@ -41,16 +41,10 @@ export default function ChatInput({ handleSendMsg, currentChat, user }) {
 
   const handleFileUpload = (event) => {
     const files = event.target.files;
-    // Process the uploaded files
-    // You can use libraries like FilePond or handle the upload logic yourself
-    console.log("Uploaded files:", files);
   };
 
   const handleAudioUpload = (event) => {
     const files = event.target.files;
-    // Process the uploaded files
-    // You can use libraries like FilePond or handle the upload logic yourself
-    console.log("Uploaded files:", files);
   };
 
   const sendChat = () => {

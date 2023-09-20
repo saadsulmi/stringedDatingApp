@@ -31,7 +31,7 @@ function ChatContainer() {
           ShowMatchesApi().then((res) => {
             if(res.data.length>0){
                 setContacts(res.data);
-                console.log(contacts,"these are the contacts");
+                
               }else{
                 setIsEmpty(true)
               }
@@ -39,7 +39,6 @@ function ChatContainer() {
         }
       }, [user]);
 
-      console.log(user);
 
       const handleChatChange = (chat,id) => {
         setCurrentChat(chat);

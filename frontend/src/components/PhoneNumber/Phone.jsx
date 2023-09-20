@@ -15,7 +15,6 @@ const Phone = ({ changePhone,error,setError }) => {
   }, [value]);
 
   const handleChange = (newValue) => {
-    console.log(newValue);
     setValue(newValue);
   };
 

@@ -143,7 +143,6 @@ const handleDeleteImage=async(path)=>{
   };
 
   const user = useSelector(state=>state.user.user);
-  console.log(user,"user at edit prof");
   return (
     <Card
       variant="outlined"
@@ -351,7 +350,6 @@ const handleDeleteImage=async(path)=>{
                                   getAriaLabel={() => 'Temperature range'}
                                   value={userData.ageLimit}
                                   onChange={(event, newValue) => {
-                                    console.log("this is the new value",newValue);
                                     setUserData((prev) => ({
                                       ...prev,
                                       ageLimit : newValue,
@@ -410,7 +408,6 @@ const handleDeleteImage=async(path)=>{
                                   getAriaLabel={() => 'Temperature range'}
                                   value={userData.ageLimit}
                                   onChange={(event, newValue) => {
-                                    console.log("this is the new value",newValue);
                                     setUserData((prev) => ({
                                       ...prev,
                                       ageLimit : newValue,

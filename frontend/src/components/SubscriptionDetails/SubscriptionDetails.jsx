@@ -20,7 +20,6 @@ const SubscriptionDetails = () => {
   const [load, setLoad] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(user);
 
   useEffect(() => {
     if (!load && user) {

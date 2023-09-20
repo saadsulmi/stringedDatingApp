@@ -75,7 +75,6 @@ export default function InitialData() {
   }, []);
 
   const validateInputs = () => {
-    console.log('inHere to validate',error);
     const regexEmail =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     // setUserData((prev) => ({
@@ -252,10 +251,8 @@ export default function InitialData() {
     formData.append("longitude", userData.longitude);
     formData.append("Preference", userData.Preference);
     formData.append("realationshipStatus", userData.realationshipStatus);
-    console.log('i am here to post image');
     
     if (userData.profilePicFile) {
-      console.log('hello',userData.profilePicFile);
       formData.append(
         "profilePic",
         userData.profilePicFile,
@@ -264,7 +261,6 @@ export default function InitialData() {
     }
 
     if (userData.coverPicFile) {
-      console.log('bye',userData.coverPicFile);
       formData.append(
         "coverPic",
         userData.coverPicFile,
@@ -272,7 +268,6 @@ export default function InitialData() {
       );
     }
     if (userData.image0) {
-      console.log('hi');
       if (userData.image0File) {
         formData.append(
           "image0",
@@ -300,10 +295,9 @@ export default function InitialData() {
         );
       }
     }
-    console.log(formData);
+    // console.log(formData);
     createAccountAPI(formData)
       .then((res) => {
-        console.log("finally here to get a response");
         if (res.data.success) {
           setloading(false);
           localStorage.setItem(

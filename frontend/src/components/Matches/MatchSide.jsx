@@ -23,7 +23,6 @@ function MatchSide() {
   useEffect(() => {
     ShowMatchesApi().then((res) => {
       if (res.data.length > 0) {
-        console.log("my matched users",res.data);
         setMatchedUsers(res.data);
       } else {
         setTimeout(()=>{

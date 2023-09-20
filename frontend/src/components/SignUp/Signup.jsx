@@ -16,10 +16,7 @@ function SignUp() {
  
   useEffect(()=>{
     if(googleData){
-      console.log(googleData);
       googleLoginAPI(googleData).then((res) => {
-        console.log('waiting for res');
-        console.log(res.data);
         setLoading(false);
         if (res.data.success) {
           if (res.data.newUser) {

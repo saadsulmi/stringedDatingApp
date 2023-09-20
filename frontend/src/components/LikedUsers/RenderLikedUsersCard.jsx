@@ -21,7 +21,6 @@ function RenderLikedUsersCard({
 
 
   useEffect(()=>{
-    console.log("uchiha uchiha");
     if(searchName==''){
       setCurrentPage(1);
       setLikedUsers([...matches])

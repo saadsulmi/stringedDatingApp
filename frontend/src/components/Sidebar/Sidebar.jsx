@@ -18,7 +18,6 @@ export default function Sidebar() {
 
   const user = useSelector(state=>state.user.user)
   const [notification,setNotification]= useState(false)
-  console.log("this is my notification",notification);
 
   useEffect(()=>{
     getNotification()

@@ -23,7 +23,6 @@ function InterestedUsers() {
       if(res.data.length>0){
         setInterestedUsers(res.data);
         if(user)readNotification({userID:user.id})
-        console.log("these are my new datas",interestedUser);
       }else{
         setTimeout(()=>{
           setIsEmpty(true)

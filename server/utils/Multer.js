@@ -16,7 +16,6 @@ export const upload = multer({
   fileFilter: (req, file, cb) => {
     const filetypes = /jpeg|jfif|jpg|png|webp/
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
-    console.log("i am inside multer");
     const mimetype = filetypes.test(file.mimetype)
     if (mimetype && extname) {
       return cb(null, true)

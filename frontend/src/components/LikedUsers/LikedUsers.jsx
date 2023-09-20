@@ -28,7 +28,6 @@ const handleUnLikeProfile = async (item) => {
   };
   try {
     const { data } = await disLikeUserApi(id);
-    console.log("i am unliking this user",data);
     dispatch(SetUserData(data));
     
   } catch (error) {
@@ -51,9 +50,7 @@ const handleBlockUser = async (item) => {
   useEffect(() => {
     showAllLikedUsersApi().then((res) => {
       if(res.data.length>0){
-        console.log("habibi iam here");
         setLikedUsers(res.data);
-        console.log(likedUsers);
       }else{
         setTimeout(()=>{
           setIsEmpty(true)

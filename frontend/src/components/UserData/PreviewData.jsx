@@ -24,16 +24,11 @@ function PreviewData({user,setStep,handleSubmit, coverPicREF,
     image0,
     image1,
     image2,}) {
-useEffect(()=>{
-console.log( coverPicREF,
-    profilePicREF,
-    image0,
-    image1,
-    image2,);
-},[])
+
+
     const handleProfile=()=>{
-handleSubmit()
-    }
+              handleSubmit()
+              }
   return (
     <CardContent>
     

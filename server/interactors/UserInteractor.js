@@ -23,7 +23,6 @@ export const findUserWithId = async (id, userModel) => {
 export const findUserWithEmail = async (email, userModel) => {
   try {
     const user = await userModel.findOne({ email });
-    // console.log(user);
     return user;
   } catch (error) {
     console.error(error);
@@ -59,7 +58,6 @@ export const createNewUser = async (userData, userModel,  cloudinary,
       }
   
      if (req?.files?.image0) {
-      console.log('hi');
         const result = await image(
           req.files.image0[0].path,
           cloudinary,
@@ -71,7 +69,6 @@ export const createNewUser = async (userData, userModel,  cloudinary,
      
   
       if (req?.files?.image1) {
-        console.log('hlo');
         const result = await image(
           req.files.image1[0].path,
           cloudinary,
@@ -81,7 +78,6 @@ export const createNewUser = async (userData, userModel,  cloudinary,
       }
   
       if (req?.files?.image2) {
-        console.log('bye');
         const result = await image(
           req.files.image2[0].path,
           cloudinary,
@@ -278,7 +274,6 @@ export const createNewUser = async (userData, userModel,  cloudinary,
       }
   
      if (req?.files?.image0) {
-      console.log('hi');
         const result = await image(
           req.files.image0[0].path,
           cloudinary,
@@ -290,7 +285,6 @@ export const createNewUser = async (userData, userModel,  cloudinary,
      
   
       if (req?.files?.image1) {
-        console.log('hlo');
         const result = await image(
           req.files.image1[0].path,
           cloudinary,
@@ -300,7 +294,6 @@ export const createNewUser = async (userData, userModel,  cloudinary,
       }
   
       if (req?.files?.image2) {
-        console.log('bye');
         const result = await image(
           req.files.image2[0].path,
           cloudinary,
@@ -309,7 +302,7 @@ export const createNewUser = async (userData, userModel,  cloudinary,
         user.images[2] = result;
       }
       user.save();
-      console.log(user, "from usecase");
+
       return user;
     } catch (error) {
       console.log(error);
@@ -466,7 +459,6 @@ export const createNewUser = async (userData, userModel,  cloudinary,
           
           let matches = [];
 
-          console.log("brigesya");
           
           match.forEach(async (arr) => {
             if (arr.user1._id != id&&arr.user1.liked) {
@@ -528,14 +520,14 @@ export const createNewUser = async (userData, userModel,  cloudinary,
 
   export const verifySubscription = async (userModel, pack, user) => {
     try {
-      console.log('hi');
+
       const isuserPresent = await userModel.find({
         _id: user,
         StringedVipType: {
           $in: [pack],
         },
       });
-      console.log(isuserPresent);
+      
       if (!isuserPresent.length > 0) {
             await userModel.findByIdAndUpdate(user, {
           $push: {

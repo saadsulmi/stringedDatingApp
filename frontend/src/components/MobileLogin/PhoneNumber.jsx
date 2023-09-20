@@ -22,7 +22,6 @@ function PhoneNumber() {
   
   
   const handleSubmit = (event) => {
-    console.log(phone+"hello i am here");
 
     if(phone){
       if(!loading){
@@ -31,7 +30,6 @@ function PhoneNumber() {
                  phone,
                }
     phoneNumberAPI(data).then((res) => {
-      console.log("here");
       if(res.data.success){
         setLoading(false)
         dispatch(setNumber(phone))

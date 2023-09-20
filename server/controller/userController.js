@@ -178,7 +178,6 @@ export const likeUser =
   };
 
   export const deleteUserImage = (userModel, deleteImage) => async (req, res) => {
-    console.log('hi');
     try {
     await deleteImage(req.body.path, req.user.id, userModel)
     sendSuccessResponse(res,{message:true})
@@ -222,10 +221,7 @@ export const likeUser =
   (verifySubscription, userModel) => async (req, res) => {
     try {
       const { pack } = req.body;
-      console.log(req.user.id, "inpayment");
       const user = await verifySubscription(userModel, pack, req.user.id);
-      console.log(pack);
-      console.log(user);
       sendSuccessResponse(res,user)
     } catch (error) {
       console.log(error);
@@ -237,7 +233,6 @@ export const likeUser =
     try {
       const user = await findUserWithId(req.user.id, userModel);
       const notification = await showMatchNotification(req.user.id, userModel,matchModel,user);
-      notification?console.log("working"):console.log("not working")
       sendSuccessResponse(res,notification)
     } catch (error) {
       sendErrorResponse(res,error)
@@ -248,7 +243,6 @@ export const likeUser =
       try{
         const user = await findUserWithId(req.user.id, userModel);
         const notification = await readMatchNotification(req.user.id, userModel,matchModel,user);
-        notification?console.log("working"):console.log("not working")
         sendSuccessResponse(res,notification)
         }catch(err){
           console.log(err);

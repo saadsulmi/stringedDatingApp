@@ -34,7 +34,6 @@ function ChatCard({ currentChat, setCurrentChat, socket,onlineUsers }) {
   const [modal,setModal]=useState(false)
   
   useEffect(() => {
-    console.log(onlineUsers);
     if (onlineUsers.length > 0) {
       if (onlineUsers.includes(currentChat._id)) {
   setCurrentChat((prev)=>({...prev,isOnline:true}))
@@ -105,7 +104,6 @@ function ChatCard({ currentChat, setCurrentChat, socket,onlineUsers }) {
     const msgs = [...messages];
     msgs.push({ fromSelf: true, message: msg });
     setMessages(msgs);
-    console.log("oh my god atleast am here");
   };
 
   useEffect(() => {
@@ -141,7 +139,7 @@ function ChatCard({ currentChat, setCurrentChat, socket,onlineUsers }) {
   }, [messages]);
 
   const handleVideoCall = () => {
-    console.log(user)
+    
     if(user.StringedVipType.length>0 || user.StringedVipType.includes('premium')){
     const data = {
       conversationId: currentChat.conversationId,

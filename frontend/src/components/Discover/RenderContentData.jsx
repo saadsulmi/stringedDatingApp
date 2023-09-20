@@ -23,7 +23,7 @@ function RenderContentData({
   dislikeHandler,
   skipHandler
 }) {
-  console.log("why this kolaveri",filteredUsers);
+  
   const [openModal, setOpenModal] = useState(false);
   const [users, setUsers] = useState("");
  

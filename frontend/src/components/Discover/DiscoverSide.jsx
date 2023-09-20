@@ -46,7 +46,6 @@ export default function DiscoverSide() {
   useEffect(() => {
     DiscoverUsersApi()
     .then((res) => {
-        console.log("hai chellom i aam here",res.data);
         setUsers(res.data);
       })
       .catch((err) => {
@@ -72,7 +71,6 @@ export default function DiscoverSide() {
           (user) =>
           !likedUserIds.includes(user?._id.toString())&&!dislikedUserIds.includes(user?._id.toString())
           ); 
-          console.log(filteredUsers,"eppidi irukk en filteration");
 
           if(user&&user.distance>0){
             filteredUsers = filteredUsers.filter((myuser)=>{
@@ -80,9 +78,7 @@ export default function DiscoverSide() {
               let lim1=parseInt(limits.slice(0,2))
               let lim2=parseInt(limits.slice(3,6))
             if( lim1<=myuser.age&&lim2>=myuser.age) {
-              console.log("hai hai hai hai");
               let {userDistance,realDistance}=distance(myuser.latitude,myuser.longitude);
-              console.log("distance between users",userDistance,realDistance);
               if (realDistance<userDistance) return user
             }
           })
@@ -94,7 +90,6 @@ export default function DiscoverSide() {
 function distance(lat1, lon1,
   lat2=user.latitude, lon2=user.longitude)
 {
-console.log(lat2,lon2,"sheri aano",lat1,lon1);
 // The math module contains a function
 // named toRadians which converts from
 // degrees to radians.
