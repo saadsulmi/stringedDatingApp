@@ -1,6 +1,6 @@
 import React from 'react'
 import DiscoverSide from '../../components/Discover/DiscoverSide'
-import UserProfile from '../../components/UserProfile/userProfile'
+import UserProfile from '../../components/UserProfile/UserProfile'
 import EditProfile from '../../components/EditProfile/EditProfile'
 import { useState } from 'react'
 import Header from '../../components/Header/Header'
