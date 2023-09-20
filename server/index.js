@@ -11,7 +11,7 @@ config();
 const app = express();
 const PORT=process.env.PORT || 8000
 
-const requestPort=process.env.RQST_PORT
+const requestPort=process.env.NODE_ENV==='production'?process.env.RQST_PORT:process.env.RQST_DEV_PORT
 
 const corsOptions = {
   origin: requestPort,

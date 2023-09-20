@@ -1,4 +1,5 @@
 import path from "path";
+
 export const findUserWithPhone = async (phone, userModel) => {
     try {
       const user = await userModel.findOne({ phone });
@@ -417,6 +418,71 @@ export const createNewUser = async (userData, userModel,  cloudinary,
         }
       }; 
 
+      export const showMatchNotification = async (id, userModel,matchModel,user) => {
+        try {
+
+          let match = await matchModel.find({
+            $or: [
+              {
+                "user1._id": id,
+              },
+              {
+                "user2._id": id,
+              },
+            ],
+            isMatched: false,
+          });
+          
+          let matches = [];
+          
+          match.forEach((arr) => {
+            if (arr.user1._id != id&&arr.user1.liked) {
+              matches.push(arr.read);
+            }
+          });
+          let result=matches.includes(false)
+          return result;
+
+        } catch (error) {
+          console.log(error);
+        }
+      }; 
+
+
+      export const readMatchNotification = async (id, userModel,matchModel,user) => {
+        try {
+    
+          let match = await matchModel.find({
+            $or: [
+              {
+                "user1._id": id,
+              },
+              {
+                "user2._id": id,
+              },
+            ],
+            isMatched: false,
+          });
+          
+          let matches = [];
+
+          console.log("brigesya");
+          
+          match.forEach(async (arr) => {
+            if (arr.user1._id != id&&arr.user1.liked) {
+              const marked= await matchModel.updateOne(
+                { _id:arr.id},
+                { $set: { read: true } }
+              );
+            }
+          })
+    
+        } catch (error) {
+          console.log(error);
+        }
+      }; 
+
+
 
   export const showAllLikedUsers = async (id, userModel) => {
     try {
@@ -484,4 +550,7 @@ export const createNewUser = async (userData, userModel,  cloudinary,
       console.log(error, "");
     }
   };
+
+
   
+

@@ -1,3 +1,5 @@
+import { sendSuccessResponse,sendErrorResponse } from "../interactors/ResponseInteractor.js";
+
 export const paymentForPremium =
   (stripe, stripePayment) => async (req, res) => {
     try {
@@ -5,8 +7,9 @@ export const paymentForPremium =
       const price = "price_1NooC7SBDd7If2NzNrV6G38f";
       const { email } = req.body;
       const session = await stripePayment(stripe, email, price, pack);
-      res.json({ url: session.url });
+      sendSuccessResponse(res,{ url: session.url })
     } catch (error) {
+      sendErrorResponse(res,error)
       console.log(error);
     }
   };

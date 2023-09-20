@@ -11,21 +11,38 @@ function RenderMatchCard({ matches, isLoading }) {
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = useState(null);
 
+  const usersPerPage = 6;
+
   const [searchName, setSearchName] = useState('');
   const [foundUsers, setFoundUsers] = useState([]);
   const [matchedUsers,setmatchedUsers]=useState([])
+  const [currentPage, setCurrentPage] = useState(1);
 
+  
   useEffect(()=>{
     if(searchName==''){
+      setCurrentPage(1);
       setmatchedUsers([...matches])
     }else{
       const filteredUsers = matches.filter((user) =>
-        user.fullName&&user.fullName.toLowerCase().includes(searchName.toLowerCase())
-        );
-        setmatchedUsers([...filteredUsers])
+      user.fullName&&user.fullName.toLowerCase().includes(searchName.toLowerCase())
+      );
+      setCurrentPage(1);
+      setmatchedUsers([...filteredUsers])
     }
   },[searchName])
+  
+  const totalPages = Math.ceil(matchedUsers.length / usersPerPage);
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+    // Calculate the index range for the current page
+    const startIndex = (currentPage - 1) * usersPerPage;
+    const endIndex = startIndex + usersPerPage;
+  
+    const paginatedUsers = matchedUsers.slice(startIndex, endIndex);
 
   const handleViewProfile = (item) => {
     setOpen(true);
@@ -51,41 +68,59 @@ function RenderMatchCard({ matches, isLoading }) {
             overflow: "hidden",
           }}
         >
-                        <Grid item mt={2} xl={12} >
-            {matches.length>0?(<TextField
+        <Grid item mt={2} xl={12} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+
+        <Grid item  sx={{
+                  minWidth:"80px",
+                  display:'flex',
+                  justifyContent:'center'
+                 }}>
+            {totalPages > 1&&currentPage > 1 && (
+                <Button onClick={() => handlePageChange(currentPage - 1)} 
+                variant="contained" 
+                color="warning"
+                size="small"
+                >
+                  Prev
+                </Button>
+              )}
+            </Grid>
+
+            {matches.length>0&&(<TextField
               size="small"
               sx={{width:{xs:'300px',md:'500px',xl:'700px'},zIndex:'999',background:'white',borderRadius:'5px'}}
               label="Search by name"
               variant="filled"
               value={searchName}
               onChange={(e) => setSearchName(e.target.value)}
-            />):("")}
+            />)}
+
+
+            <Grid item sx={{
+              minWidth:"80px"
+             }}>
+             {totalPages > 1&&currentPage < totalPages && (
+                <Button onClick={() => handlePageChange(currentPage + 1)} 
+                variant="contained" 
+                color="warning"
+                size="small"
+                >
+                  next
+                </Button>
+              )}
+            </Grid>
+
             </Grid>
           <CardContent
             sx={{
               height: "100%",
-              overflowX:'hidden',
-              overflowY: "scroll",
-              "&::-webkit-scrollbar": {
-                width: "7px",
-              },
-              "&::-webkit-scrollbar-track": {
-                background: "transparent",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "darkgrey",
-                borderRadius: "2rem",
-              },
-              "&::-webkit-scrollbar-thumb:hover": {
-                backgroundColor: "grey",
-                borderRadius: "2rem",
-              },
+              overflowX:'unset',
             }}
             component={Grid}
             spacing={2}
             container
           >
-            {matchedUsers?.map((item) => {
+            {paginatedUsers?.map((item) => {
               return (
                 <Grid
                   key={item._id}

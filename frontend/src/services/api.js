@@ -14,47 +14,51 @@ const formDataHeaders = {
 }
 
 
-export const phoneNumberAPI = (data)=> axios.post("/api/phone",data);
+export const phoneNumberAPI = (data)=> axios.post("/phone",data);
 
-export const OTP_API = (data) => axios.post("/api/verifyOtp", data);
+export const OTP_API = (data) => axios.post("/verifyOtp", data);
 
-export const googleLoginAPI = (data) => axios.post("/api/googleLogin", data);
+export const googleLoginAPI = (data) => axios.post("/googleLogin", data);
 
-export const createAccountAPI = (userData) => axios.post("/api/createAccount", userData,formDataHeaders);
+export const createAccountAPI = (userData) => axios.post("/createAccount", userData,formDataHeaders);
 
-export const userDataApi = () => axios.get("/api/userData", headers);
+export const userDataApi = () => axios.get("/userData", headers);
 
-export const DiscoverUsersApi = () => axios.get("/api/discover", headers);
+export const DiscoverUsersApi = () => axios.get("/discover", headers);
 
-export const likeUserApi = (data) => axios.put("/api/likeUser", data, headers);
+export const likeUserApi = (data) => axios.put("/likeUser", data, headers);
 
-export const disLikeUserApi = (data) => axios.put("/api/dislikeUser", data, headers);
+export const disLikeUserApi = (data) => axios.put("/dislikeUser", data, headers);
 
 export const fetchLocationApi = (latitude, longitude) => {
     const geoApiUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
    return fetch(geoApiUrl);
   };
 
-export const deleteImageApi=(data)=>axios.patch('/api/deleteImage',data,headers)
+export const deleteImageApi=(data)=>axios.patch('/deleteImage',data,headers)
 
-export const editUserDataApi = (formData) => axios.patch("/api/userEdit", formData, formDataHeaders);
+export const editUserDataApi = (formData) => axios.patch("/userEdit", formData, formDataHeaders);
 
-export const ReadMsgsApi = (data) => axios.post("/api/chat/markRead", data, headers);
+export const ReadMsgsApi = (data) => axios.post("/chat/markRead", data, headers);
 
-export const addNewMSgApi = (data) => axios.post("/api/chat/addmsg", data, headers);
+export const addNewMSgApi = (data) => axios.post("/chat/addmsg", data, headers);
 
-export const getAllmsgsApi = (data) => axios.post("/api/chat/getmsg", data, headers);
+export const getAllmsgsApi = (data) => axios.post("/chat/getmsg", data, headers);
 
-export const getLastMsgsApi = (data) => axios.post("/api/chat/lastmsg", data, headers);
+export const getLastMsgsApi = (data) => axios.post("/chat/lastmsg", data, headers);
 
-export const blockUserApi = (data) => axios.put("/api/blockUser", data, headers);
+export const blockUserApi = (data) => axios.put("/blockUser", data, headers);
 
-export const ShowMatchesApi = () => axios.get("/api/matches", headers);
+export const ShowMatchesApi = () => axios.get("/matches", headers);
 
-export const showAllLikedUsersApi = () => axios.get("/api/allLikedUsers", headers);
+export const showAllLikedUsersApi = () => axios.get("/allLikedUsers", headers);
 
-export const showAllInterestedUsersApi = () => axios.get("/api/allInterestedUsers", headers);
+export const showAllInterestedUsersApi = () => axios.get("/allInterestedUsers", headers);
 
-export const premiumSubscriptionApi = (data) => axios.post("/api/payment/premium", data, headers);
+export const premiumSubscriptionApi = (data) => axios.post("/payment/premium", data, headers);
 
-export const PaymentSuccessApi = (data) => axios.post("/api/paymentVerified", data, headers);
+export const PaymentSuccessApi = (data) => axios.post("/paymentVerified", data, headers);
+
+export const readNotification = (data)=> axios.post('/readNotification',data,headers);
+
+export const getNotification = (data)=> axios.post('/getNotification',data,headers);

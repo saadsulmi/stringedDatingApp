@@ -11,7 +11,7 @@ export const stripePayment = async (stripe, email, price,pack) => {
       ],
       mode: 'payment',
       success_url: `http://localhost:5173/Premium?pack=${pack}`, 
-      cancel_url: `http://localhost:5173/Premium?canceled=true`, 
+      cancel_url: `http://localhost:5173/Premium?canceled=true`,
     });
     return session;
   };

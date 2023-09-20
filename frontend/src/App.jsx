@@ -134,12 +134,7 @@ function App() {
           <Route path="/Premium" element={<SubscriptionPage />} />
           <Route path="/room/:roomId" element={<VideoCall />} />
         </Route>
-
         </Route>
-        {/* <Route path="/admin">
-          <Route index element={<AdminLogin/>}/>
-        </Route>
-        <Route path="*" element={<NotFound />} /> */}
       </Routes>
       <IncomingCallModal open={call} close={handleClose} />
     </Suspense>

@@ -1,7 +1,7 @@
 import { io } from "socket.io-client"
 
-const URL = import.meta.env.VITE_SERVER_URL
-
+const URL = import.meta.env.VITE_SOCKET_URL
+console.log("hey gooys this is my paid",URL);
 export const socket = io(URL, {
   autoConnect: false,
   secure: true,

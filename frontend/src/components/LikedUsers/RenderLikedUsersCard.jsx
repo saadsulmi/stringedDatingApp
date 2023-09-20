@@ -15,18 +15,37 @@ function RenderLikedUsersCard({
 
   const [searchName, setSearchName] = useState('');
   const [likedUsers,setLikedUsers]=useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const usersPerPage = 6;
+
 
   useEffect(()=>{
     console.log("uchiha uchiha");
     if(searchName==''){
+      setCurrentPage(1);
       setLikedUsers([...matches])
     }else{
       const filteredUsers = matches.filter((user) =>
         user.fullName&&user.fullName.toLowerCase().includes(searchName.toLowerCase())
         );
+        setCurrentPage(1);
         setLikedUsers([...filteredUsers])
     }
   },[searchName,user,matches])
+
+    // Calculate the total number of pages
+    const totalPages = Math.ceil(likedUsers.length / usersPerPage);
+
+    const handlePageChange = (page) => {
+      setCurrentPage(page);
+    };
+
+      // Calculate the index range for the current page
+      const startIndex = (currentPage - 1) * usersPerPage;
+      const endIndex = startIndex + usersPerPage;
+
+      const paginatedUsers = likedUsers.slice(startIndex, endIndex);
 
   return (
     <>
@@ -45,7 +64,22 @@ function RenderLikedUsersCard({
             overflow: "hidden",
           }}
         >
-            <Grid item mt={2} xl={12} >
+            <Grid item mt={2} xl={12} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+            <Grid item  sx={{
+                  minWidth:"80px",
+                  display:'flex',
+                  justifyContent:'center'
+                 }}>
+            {totalPages > 1&&currentPage > 1 && (
+                <Button onClick={() => handlePageChange(currentPage - 1)} 
+                variant="contained" 
+                color="warning"
+                size="small"
+                >
+                  Prev
+                </Button>
+              )}
+            </Grid>
             {matches.length>0?(<TextField
               size="small"
               sx={{width:{xs:'300px',md:'500px',xl:'700px'},zIndex:'999',background:'white',borderRadius:'5px'}}
@@ -54,32 +88,32 @@ function RenderLikedUsersCard({
               value={searchName}
               onChange={(e) => setSearchName(e.target.value)}
             />):("")}
+             <Grid item sx={{
+              minWidth:"80px"
+             }}>
+             {totalPages > 1&&currentPage < totalPages && (
+                <Button onClick={() => handlePageChange(currentPage + 1)} 
+                variant="contained" 
+                color="warning"
+                size="small"
+                >
+                  next
+                </Button>
+              )}
+            </Grid>
+
+
             </Grid>
           <CardContent
             sx={{
               height: "100%",
-              overflowX: "hidden",
-              overflowY: "scroll",
-              "&::-webkit-scrollbar": {
-                width: "7px",
-              },
-              "&::-webkit-scrollbar-track": {
-                background: "transparent",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "darkgrey",
-                borderRadius: "2rem",
-              },
-              "&::-webkit-scrollbar-thumb:hover": {
-                backgroundColor: "grey",
-                borderRadius: "2rem",
-              },
+              overflowX: "unset",
             }}
             component={Grid}
             spacing={2}
             container
           >
-            {likedUsers?.map((item) => {
+            {paginatedUsers?.map((item) => {
               return (
                 <Grid
                   key={item._id}

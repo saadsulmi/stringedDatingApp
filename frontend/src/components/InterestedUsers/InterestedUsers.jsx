@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import RenderInterestedUsers from "./RenderInterestedUsers";
 import { SetUserData } from "../../features/users/UserReducer";
-import { blockUserApi, disLikeUserApi, likeUserApi, showAllInterestedUsersApi } from "../../services/api";
+import { blockUserApi, disLikeUserApi, likeUserApi, showAllInterestedUsersApi,readNotification } from "../../services/api";
 import Loader from "../MatchesLoader/Loader";
 
 
@@ -22,6 +22,7 @@ function InterestedUsers() {
       showAllInterestedUsersApi().then((res) => {
       if(res.data.length>0){
         setInterestedUsers(res.data);
+        if(user)readNotification({userID:user.id})
         console.log("these are my new datas",interestedUser);
       }else{
         setTimeout(()=>{
@@ -29,8 +30,13 @@ function InterestedUsers() {
         },500)
       }
       
-    });
-    }, [user]);
+    })
+    
+  },[user]);
+  
+  useEffect(()=>{
+    if(user)readNotification({userID:user.id});
+  },[])
   
     useEffect(() => {
       if (interestedUser) {

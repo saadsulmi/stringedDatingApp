@@ -22,6 +22,10 @@ const matchesSchema = new mongoose.Schema(
         default: false,
       },
     },
+    read: {
+      type: Boolean,
+      default: false,
+    },
     isMatched: {
       type: Boolean,
       default: false,

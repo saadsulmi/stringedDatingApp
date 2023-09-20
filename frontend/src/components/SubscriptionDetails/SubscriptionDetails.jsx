@@ -91,7 +91,7 @@ const SubscriptionDetails = () => {
           minHeight: "70vh",
           borderRadius: 6,
           backdropFilter: "brightness(0.9) blur(15px)",
-          backgroundColor: "rgba(255, 255, 255,0.7)",
+          backgroundColor: "rgba(255, 255, 255,1)",
         }}
       >
         <CardContent sx={{display:'flex',justifyContent:'center'}} >

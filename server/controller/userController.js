@@ -1,12 +1,14 @@
+import {sendSuccessResponse,sendErrorResponse } from '../interactors/ResponseInteractor.js'
+
 export const phoneOtp = (SendPhoneOtp, sendOtp) => async (req, res) => {
     const { phone } = req.body;
     try {
       console.log("hehehehehhe");
       await SendPhoneOtp(phone, sendOtp);
-      res.json({ success: true }).status(200);
+      sendSuccessResponse(res,{ success: true })
     } catch (error) {
       console.error(error);
-      res.json({ success: false, message: "Some error occurred" });
+      sendErrorResponse(res,{ success: false, message: "Some error occurred" })
     }
 };
 
@@ -27,21 +29,21 @@ export const verifyOtp =
       if (verificationStatus.status === "approved") {
         const user = await findUserWithPhone(phone, userModel);
         if (!user) {
-          res.json({
+          sendSuccessResponse(res,{
             success: true,
             newUser: true,
             redirect: "/createAccount",
-          });
+          })
         } else {
           const token = await createJwtToken(user, createUserToken);
-          res.json({ success: true, token, redirect: "/Discover" ,user });
+          sendSuccessResponse(res,{ success: true, token, redirect: "/Discover" ,user })
         }
       } else {
         throw new Error("Failed to verify OTP");
       }
     } catch (error) {
       console.error(error);
-      res.json({ success: false, message: "Some error occurred" });
+      sendErrorResponse(res,{ success: false, message: "Some error occurred" })
     }
   };
 
@@ -53,22 +55,15 @@ export const verifyOtp =
       const { email } = req.body;
       const user = await findUserWithEmail(email, userModel);
       if (!user) {
-        res
-        .status(200)
-        .json({ success: true, redirect: "/createAccount", newUser: true });
+        sendSuccessResponse(res,{ success: true, redirect: "/createAccount", newUser: true })
       }else{
-        
       const token = await createJwtToken(user, createUserToken);
-      res
-        .status(200)
-        .json({ success: true, token, redirect: "/findStrings", user: user });
+      sendSuccessResponse(res,{ success: true, token, redirect: "/findStrings", user: user })
       }
     } 
     catch (error) {
       console.error(error);
-      res
-        .status(400)
-        .json({ success: false, message: "Failed to login with Google" });
+      sendErrorResponse(res,{ success: false, message: "Failed to login with Google" },400)
     }
   };
 
@@ -88,28 +83,28 @@ export const userDetails =
         image,
         removeFile,req);
         const token = await createJwtToken(user, createUserToken);
-        res.status(200)
-        .json({ success: true, redirect: "/profile", user, token });
+        sendSuccessResponse(res,{ success: true, redirect: "/profile", user, token })
+
     } catch (error) {
-        res.status(400).json({ error: "Failed to create user" });
+      sendErrorResponse(res,{ error: "Failed to create user" },400)
     }
 };
 
 export const userData = (findUserWithId, userModel) => async (req, res) => {
   try {
     const user = await findUserWithId(req.user.id, userModel);
-    res.json(user).status(200);
+    sendSuccessResponse(res,user)
   } catch (error) {
-    res.status(400).json({ error: error });
+    sendErrorResponse(res,{ error: error },400)
   }
 };
 
 export const discoverUsers = (userModel, showUsers) => async (req, res) => {
   try {
     const users = await showUsers(req, userModel);
-    res.json(users);
+    sendSuccessResponse(res,users)
   } catch (error) {
-    res.status(400).json(error);
+    sendErrorResponse(res,error,400)
   }
 };
 
@@ -117,10 +112,9 @@ export const matchedUsers =
   (getMatchedUsers, matchModel, userModel) => async (req, res) => {
     try {
       const matches = await getMatchedUsers(req.user.id, matchModel, userModel);
-
-      res.status(200).json(matches);
+      sendSuccessResponse(res,matches)
     } catch (error) {
-      res.status(400).json(error);
+      sendErrorResponse(res,error,400)
     }
   };
 
@@ -135,9 +129,10 @@ export const likeUser =
         userModel,
         matchModel
       );
-      res.status(200).json(user);
+      sendSuccessResponse(res,user)
     } catch (error) {
-      res.status(400).json({ message: error.message });
+
+      sendErrorResponse(res,{ message: error.message },400)
     }
   };
 
@@ -147,9 +142,9 @@ export const likeUser =
     try {
       const { User } = req.body;
       const user = await dislikeAUser(req.user.id, User, userModel, matchModel);
-      res.status(200).json(user);
+      sendSuccessResponse(res,user)
     } catch (error) {
-      res.status(400).json(error);
+      sendErrorResponse(res,error,400)
     }
   };
 
@@ -176,9 +171,9 @@ export const likeUser =
         image,
         removeFile
       );
-      res.json(user);
+      sendSuccessResponse(res,user)
     } catch (error) {
-      res.status(400).json(error);
+      sendErrorResponse(res,error,400)
     }
   };
 
@@ -186,9 +181,9 @@ export const likeUser =
     console.log('hi');
     try {
     await deleteImage(req.body.path, req.user.id, userModel)
-      res.json({message:true})
+    sendSuccessResponse(res,{message:true})
     } catch (error) {
-      res.status(500).json(error);
+      sendErrorResponse(res,error)
     }
   };
 
@@ -196,9 +191,9 @@ export const likeUser =
   (showAllLikedUsers, userModel) => async (req, res) => {
     try {
       const users = await showAllLikedUsers(req.user.id, userModel);
-      res.status(200).json(users);
+      sendSuccessResponse(res,users)
     } catch (error) {
-      console.log(error);
+      sendErrorResponse(res,error)
     }
   };
 
@@ -206,23 +201,23 @@ export const likeUser =
     try {
       const user = await findUserWithId(req.user.id, userModel);
       const users = await showAllInterestedUsers(req.user.id, userModel,matchModel,user);
-      console.log("after like or dislike",users);
-      res.status(200).json(users);
+      sendSuccessResponse(res,users)
     } catch (error) {
-      console.log(error);
+      sendErrorResponse(res,error)
     }
   };
 
+  
   export const blockUser = (userModel, blockAUser) => async (req, res) => {
     try {
       const { User } = req.body;
       const user = await blockAUser(req.user.id, User, userModel);
-      res.status(200).json(user);
+      sendSuccessResponse(res,user)
     } catch (error) {
-      res.status(500).json(error);
+      sendErrorResponse(res,error)
     }
   };
-
+  
   export const verifyPayment =
   (verifySubscription, userModel) => async (req, res) => {
     try {
@@ -231,8 +226,32 @@ export const likeUser =
       const user = await verifySubscription(userModel, pack, req.user.id);
       console.log(pack);
       console.log(user);
-      res.json(user);
+      sendSuccessResponse(res,user)
     } catch (error) {
       console.log(error);
+      sendErrorResponse(res,error)
     }
   };
+  
+  export const getInterestNotification = (showMatchNotification,matchModel, userModel,findUserWithId) => async (req, res) => {
+    try {
+      const user = await findUserWithId(req.user.id, userModel);
+      const notification = await showMatchNotification(req.user.id, userModel,matchModel,user);
+      notification?console.log("working"):console.log("not working")
+      sendSuccessResponse(res,notification)
+    } catch (error) {
+      sendErrorResponse(res,error)
+    }
+  };
+
+    export const readnotification=(readMatchNotification,matchModel, userModel,findUserWithId)=>async(req,res)=>{
+      try{
+        const user = await findUserWithId(req.user.id, userModel);
+        const notification = await readMatchNotification(req.user.id, userModel,matchModel,user);
+        notification?console.log("working"):console.log("not working")
+        sendSuccessResponse(res,notification)
+        }catch(err){
+          console.log(err);
+          sendErrorResponse(res,{ message: err})
+      }
+    }
