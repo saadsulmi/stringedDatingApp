@@ -6,6 +6,7 @@ import CardContent1 from "@mui/joy/CardContent";
 import KeepMountedModal from "../Modal/KeepMountedModal";
 import { useState } from "react";
 import TextField from '@mui/material/TextField';
+import { searchMatchedUserApi } from "../../services/api";
 
 function RenderMatchCard({ matches, isLoading }) {
   const [open, setOpen] = React.useState(false);
@@ -14,21 +15,24 @@ function RenderMatchCard({ matches, isLoading }) {
   const usersPerPage = 6;
 
   const [searchName, setSearchName] = useState('');
-  const [foundUsers, setFoundUsers] = useState([]);
   const [matchedUsers,setmatchedUsers]=useState([])
   const [currentPage, setCurrentPage] = useState(1);
 
+  const handleSearch = async (key,user)=>{
+    let data = {
+      searchkey:key
+    }
+    searchMatchedUserApi(data).then((res)=>{
+      setmatchedUsers(res.data)
+    })
+  }
   
   useEffect(()=>{
     if(searchName==''){
       setCurrentPage(1);
       setmatchedUsers([...matches])
     }else{
-      const filteredUsers = matches.filter((user) =>
-      user.fullName&&user.fullName.toLowerCase().includes(searchName.toLowerCase())
-      );
-      setCurrentPage(1);
-      setmatchedUsers([...filteredUsers])
+      handleSearch(searchName,user)
     }
   },[searchName])
   
@@ -53,8 +57,8 @@ function RenderMatchCard({ matches, isLoading }) {
     <>
      <Grid item xs={2} sm={0}>
 
-</Grid>
-<Grid item xs={12} sm={8.2} md={12} lg={12} sx={{ my: 0 }}>
+      </Grid>
+      <Grid item xs={12} sm={8.2} md={12} lg={12} sx={{ my: 0 }}>
         <Card
           className="CardItems"
           variant="outlined"
@@ -113,6 +117,7 @@ function RenderMatchCard({ matches, isLoading }) {
             </Grid>
           <CardContent
             sx={{
+              marginTop:'1px',
               height: "100%",
               overflowY: {xs:"scroll",md:"unset"},
               "&::-webkit-scrollbar": {
@@ -137,18 +142,19 @@ function RenderMatchCard({ matches, isLoading }) {
             {paginatedUsers?.map((item) => {
               return (
                 <Grid
-                  key={item._id}
-                  item
-                  xs={12}
-                  md={5}
-                  lg={5}
-                  xl={4}
-                  sx={{ my: 1,mx:{md:2,lg:0} }}
+                key={item._id}
+                item
+                xs={12}
+                md={5}
+                lg={5}
+                xl={4}
+                sx={{ my: 1, mx: { md: 2, lg: 0 }, margin:'-20px' }}
                 >
                   <Card1
                     sx={{
+                      
                       width: { xs: '90%', sm: 450, md: 270, lg: 230 },
-                      height: { xs: 500, sm: 500, md: 230, lg: 230 },
+                      height: { xs: 500, sm: 500, md: 230, lg: 220 },
                     }}
                   >
                     <CardCover>

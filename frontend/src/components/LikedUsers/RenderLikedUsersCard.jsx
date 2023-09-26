@@ -5,6 +5,7 @@ import Card1 from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import CardContent1 from "@mui/joy/CardContent";
 import TextField from '@mui/material/TextField';
+import { searchLikedUserApi } from "../../services/api";
 
 function RenderLikedUsersCard({
   handleUnLikeProfile,
@@ -19,19 +20,29 @@ function RenderLikedUsersCard({
 
   const usersPerPage = 6;
 
-
-  useEffect(()=>{
-    if(searchName==''){
-      setCurrentPage(1);
-      setLikedUsers([...matches])
-    }else{
-      const filteredUsers = matches.filter((user) =>
-        user.fullName&&user.fullName.toLowerCase().includes(searchName.toLowerCase())
-        );
-        setCurrentPage(1);
-        setLikedUsers([...filteredUsers])
+  const handleSearch = async (item,user)=>{
+    try {
+      const data={
+        id:user._id,
+        searchkey:item
+      }
+      const search = await searchLikedUserApi(data)
+      setCurrentPage(1)
+      setLikedUsers([...search.data])
+    } catch (error) {
+      
     }
-  },[searchName,user,matches])
+  }
+
+  useEffect(() => {
+    if (searchName === '') {
+      handleSearch(searchName,user)
+      setCurrentPage(1);
+      setLikedUsers([...matches]);
+    } else {
+      handleSearch(searchName,user)
+    }
+  }, [searchName,user]);
 
     // Calculate the total number of pages
     const totalPages = Math.ceil(likedUsers.length / usersPerPage);

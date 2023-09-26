@@ -62,3 +62,9 @@ export const PaymentSuccessApi = (data) => axios.post("/paymentVerified", data, 
 export const readNotification = (data)=> axios.post('/readNotification',data,headers);
 
 export const getNotification = (data)=> axios.post('/getNotification',data,headers);
+
+export const searchLikedUserApi = data => axios.post('/searchLikedUser',data,headers);
+
+export const searchMatchedUserApi =data => axios.post("/searchMatchedUser",data, headers);
+
+export const searchRequestedUserApi = data => axios.post('/searchRequestedUser',data,headers);

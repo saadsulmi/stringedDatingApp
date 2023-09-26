@@ -24,7 +24,7 @@ import SmokingRoomsIcon from "@mui/icons-material/SmokingRooms";
 import GenderIcon from "../Icons/GenderIcon";
 import RelationIcon from "../Icons/RelationIcon";
 import ReligionIcon from "../Icons/ReligionIcon";
-import React from "react";
+import React, { useState } from "react";
 import { deleteImageApi, fetchLocationApi } from "../../services/api";
 import CloseIcon from "@mui/icons-material/Close";
 import { validateDate } from "@mui/x-date-pickers/internals";
@@ -45,6 +45,17 @@ function EditProfileCard({
   loader,
   setLoader
 }) {
+
+  const [phoneCheck,setPhone]=useState(false);
+  const [mailCheck,setMail]=useState(false);
+  useState(()=>{
+    if(userData.phone!=='null'){
+      setPhone(true)
+    }
+    if(userData.email){
+      setMail(true)
+    }
+  },[])
   const handleProfilePic = (e) => {
     if (e.target.files[0]) {
       setUserData((prev) => ({
@@ -236,7 +247,7 @@ const handleDeleteImage=async(path)=>{
               value={userData.email}
               {...(error.email ? { error: true } : {})}
               fullWidth
-              disabled={userData.email?'disable':''}
+              disabled={mailCheck?'disable':''}
               onChange={(e) =>
                 setUserData((prevState) => ({
                   ...prevState,
@@ -254,7 +265,15 @@ const handleDeleteImage=async(path)=>{
               label="Phone"
               variant="outlined"
               value={userData.phone}
-              disabled={userData.phone?'disable':''}
+              onChange={(e) => {
+                const inputValue = e.target.value;
+                  setUserData((prevState) => ({
+                    ...prevState,
+                    phone: inputValue,
+                  }));
+                
+              }}
+              disabled={phoneCheck?'disable':''}
               fullWidth
             />
           </Grid>

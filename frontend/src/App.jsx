@@ -125,16 +125,17 @@ function App() {
           </Route>
         </Route>
         <Route element={<UserPrivateRoute/>}>
-          <Route path="/Discover" element={<HomePage/>}/>
+          <Route path="/discover" element={<HomePage/>}/>
           <Route path="/profile" element={<Profile />} />
-          <Route path="/LikedUsers" element={<LikedUsersPage />} />
-          <Route path="/Matches" element={<MatchesPage />} />
-          <Route path="/Request" element={<InterestedPage/>} />
-          <Route path="/Chat" element={<ChatPage />} />
-          <Route path="/Premium" element={<SubscriptionPage />} />
+          <Route path="/likedUsers" element={<LikedUsersPage />} />
+          <Route path="/matches" element={<MatchesPage />} />
+          <Route path="/request" element={<InterestedPage/>} />
+          <Route path="/chat" element={<ChatPage />} />
+          <Route path="/premium" element={<SubscriptionPage />} />
           <Route path="/room/:roomId" element={<VideoCall />} />
         </Route>
         </Route>
+        <Route path="*" element={<NotFound/>} />
       </Routes>
       <IncomingCallModal open={call} close={handleClose} />
     </Suspense>

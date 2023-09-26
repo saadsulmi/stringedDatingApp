@@ -85,12 +85,12 @@ export default function Sidebar() {
   const navigate=useNavigate()
 
   const navItems=[
-    "Discover",
+    "discover",
     "Match Request",
-    "LikedUsers",
-    "Matches",
-    "Chat",
-    "Premium"
+    "likedUsers",
+    "matches",
+    "chat",
+    "premium"
   ]
   return (
     <>
@@ -115,7 +115,7 @@ export default function Sidebar() {
                   <ListItem key={item}>
                       <Button  component="a" onClick={()=>{
                         {item==='Match Request'?setNotification(false):''}
-                        navigate(`/${item==='Match Request'?'Request':item}`)}} fullWidth>
+                        navigate(`/${item==='Match Request'?'request':item}`)}} fullWidth>
                         <Typography  sx={{ color: 'white', letterSpacing: '3px' }} >{item}</Typography>
                       {notification&&item==='Match Request'?(
                       <StyledBadge

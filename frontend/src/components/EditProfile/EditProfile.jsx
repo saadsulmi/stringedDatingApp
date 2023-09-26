@@ -30,7 +30,7 @@ function EditProfile({ edit, setEdit }) {
     location: user.location,
     distance:user.distance||0,
     ageLimit:[18,99],
-    phone: user.phone,
+    phone: user.phone||null,
     Preference: user.Preference,
     profilePic: user.profilePic || "/avatar.jpg",
     coverPic: user.coverPic || "/cover-picture.png",
@@ -77,7 +77,7 @@ function EditProfile({ edit, setEdit }) {
     formData.append("drinking", userData.drinking);
     formData.append("smoking", userData.smoking);
     formData.append("bio", userData.bio);
-    formData.append("phone", userData.phone);
+    formData.append("phone", userData.phone||'null');
     formData.append("Preference", userData.Preference);
     formData.append("realationshipStatus", userData.realationshipStatus);
 

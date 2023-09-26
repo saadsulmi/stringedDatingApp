@@ -8,11 +8,11 @@ import KeepMountedModal from "../Modal/KeepMountedModal";
 import { AiFillHeart } from "react-icons/ai";
 import { FaHeartBroken } from "react-icons/fa";
 import TextField from '@mui/material/TextField';
+import { searchRequestedUserApi } from "../../services/api";
 
 
 function RenderInterestedUsers({
   handleUnLikeProfile,
-  handleBlockUser,
   handleLikeProfile,
   matches,
   isLoading,
@@ -26,26 +26,33 @@ function RenderInterestedUsers({
   
   // Define the number of users to display per page
   const usersPerPage = 6;
-  
+
+  const handleSearch= async(key,user)=>{
+    const data={
+      id:user._id,
+      searchkey:key
+    }
+    const searchdata= await searchRequestedUserApi(data);
+    setCurrentPage(1);
+    setInterestedUsers(searchdata.data)
+  }
+
   const handleViewProfile = (item) => {
+    console.log("hello");
     setOpen(true);
     setUsers(item);
   };
 
-  useEffect(() => {
+  useEffect( () => {
     if (searchName === '') {
       setCurrentPage(1);
       setInterestedUsers([...matches]);
     } else {
-      const filteredUsers = matches.filter(
-        (user) =>
-          user.fullName &&
-          user.fullName.toLowerCase().includes(searchName.toLowerCase())
-      );
-      setCurrentPage(1);
-      setInterestedUsers([...filteredUsers]);
+      handleSearch(searchName,user);
     }
-  }, [searchName, user, matches]);
+  }, [searchName]);
+
+
 
   // Calculate the total number of pages
   const totalPages = Math.ceil(interestedUsers.length / usersPerPage);
@@ -174,7 +181,7 @@ function RenderInterestedUsers({
     }}
   />
   <CardContent1 sx={{ justifyContent: "flex-end", color: "white" }}>
-    <Grid item xl={12} marginTop={12}>
+    <Grid item xl={12} marginTop={17}>
       <Typography level="h2" fontSize="lg" mb={1} onClick={() => handleViewProfile(item)}>
         {item.fullName}
       </Typography>
@@ -195,22 +202,16 @@ function RenderInterestedUsers({
         Reject
       </Button>
     </Grid>
-    <Button
-      sx={{ m: 1 }}
-      color={
-        user.blockedUsers.includes(item._id)
-          ? "success"
-          : "error"
-      }
-      variant="outlined"
-      onClick={() => handleBlockUser(item)}
-    >
-      {user.blockedUsers.includes(item._id)
-        ? "UnBlock"
-        : "Block"}
-    </Button>
+    
   </CardContent1>
 </Card1>
+            <KeepMountedModal
+              user={users}
+              setUser={setUsers}
+              open={open}
+              setOpen={setOpen}
+              isLoading={isLoading}
+            />
                 </Grid>
               );
             })}

@@ -48,7 +48,7 @@ function MatchSide() {
               variant="outlined"
               sx={{
                 width: "100%",
-                height: "34rem",
+                height: "36rem",
                 borderRadius: 6,
                 backdropFilter: "brightness(0.9) blur(15px)",
                 marginTop:{ xs:"-80px",sm:"-20px",xl:"-35px"},

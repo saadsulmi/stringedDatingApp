@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import RenderInterestedUsers from "./RenderInterestedUsers";
 import { SetUserData } from "../../features/users/UserReducer";
-import { blockUserApi, disLikeUserApi, likeUserApi, showAllInterestedUsersApi,readNotification } from "../../services/api";
+import { disLikeUserApi, likeUserApi, showAllInterestedUsersApi,readNotification,searchRequestedUserApi } from "../../services/api";
 import Loader from "../MatchesLoader/Loader";
 
 
@@ -56,6 +56,7 @@ function InterestedUsers() {
       }
     };
 
+
     //new implementation of like
     const handleLikeProfile= async(item)=>{
         const id={
@@ -69,18 +70,7 @@ function InterestedUsers() {
         }
     }
   
-    const handleBlockUser = async (item) => {
-      const id = {
-        User: item._id,
-      };
-      try {
-        const { data } = await blockUserApi(id);
-        dispatch(SetUserData(data));
-        
-      } catch (error) {
-        console.log(error);
-      }
-    };
+
 
 
   
@@ -93,7 +83,6 @@ function InterestedUsers() {
             {interestedUser.length>0 ? (
               <RenderInterestedUsers
                 handleUnLikeProfile={handleUnLikeProfile}
-                handleBlockUser={handleBlockUser}
                 handleLikeProfile={handleLikeProfile}
                 matches={interestedUser}
                 isLoading={isLoading}
