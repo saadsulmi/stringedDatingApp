@@ -543,6 +543,121 @@ export const createNewUser = async (userData, userModel,  cloudinary,
     }
   };
 
+  export const findLikedUser= async (id,searchKey,userModel)=>{
+    const likedUsers = await userModel.findOne({
+      _id: id
+    });
+    const users = await userModel.find({ _id: { $in: likedUsers.likedUsers } });
+  
+    if(searchKey===''){
+      return users
+    }else{
+      const filteredUsers = users.filter((user) =>
+      user.fullName.toLowerCase().includes(searchKey.toLowerCase()));
+      return filteredUsers
+    }
+
+  }
+
+  export const findRequestedUsers = async (id, userModel,matchModel,user,searchKey) => {
+    try {
+
+      let match = await matchModel.find({
+        $or: [
+          {
+            "user1._id": id,
+          },
+          {
+            "user2._id": id,
+          },
+        ],
+        isMatched: false,
+      });
+      
+      let matches = [];
+      
+      match.forEach((arr) => {
+        if (arr.user1._id != id&&arr.user1.liked) {
+          matches.push({ user: arr.user1._id});
+        }
+      });
+      
+      const matchIds = matches.map((match) => match.user);
+      
+      let usersData = await userModel.find({ _id: { $in: matchIds } });
+      
+      let checkerA = await userModel.find({ _id: { $in: user.dislikedUsers } })||[]
+
+      let checkerB = await userModel.find({ _id: { $in: user.likedUsers } })||[]
+
+      const result1 = usersData.filter(userData => !checkerA.some(checkerData => userData._id.equals(checkerData._id)));
+
+      const result2 = result1.filter(userData => !checkerB.some(checkerData => userData._id.equals(checkerData._id)));
+
+      if(searchKey===''){
+        return result2
+      }else{
+        const filteredUsers = result2.filter((user) =>
+        user.fullName.toLowerCase().includes(searchKey.toLowerCase()));
+        return filteredUsers
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }; 
+
+  export const searchMatchedUsers = async (id, matchModel, userModel,searchKey) => {
+    try {
+      let match = await matchModel.find({
+        $or: [
+          {
+            "user1._id": id,
+          },
+          {
+            "user2._id": id,
+          },
+        ],
+        isMatched: true,
+      });
+  
+      let matches = [];
+  
+      match.forEach((arr) => {
+        if (arr.user1._id != id) {
+          matches.push({ user: arr.user1._id, conversationId: arr._id });
+        } else if (arr.user2._id != id) {
+          matches.push({ user: arr.user2._id, conversationId: arr._id });
+        }
+      });
+  
+      const matchIds = matches.map((match) => match.user);
+  
+      let usersData = await userModel.find({ _id: { $in: matchIds } });
+  
+      const userData = usersData.map((user) => {
+        const match = matches.find(
+          (match) => match.user.toString() === user._id.toString()
+        );
+        if (match) {
+          return { ...user._doc, conversationId: match.conversationId };
+        }
+      });
+      
+      if(searchKey===''){
+        return userData
+      }else{
+        const filteredUsers = userData.filter((user) =>
+        user.fullName.toLowerCase().includes(searchKey.toLowerCase()));
+        return filteredUsers
+      }
+
+    } catch (error) {
+      console.log(error);
+      throw new Error("Failed to show users");
+    }
+  };
+
 
   
 

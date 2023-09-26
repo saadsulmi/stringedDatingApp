@@ -206,6 +206,16 @@ export const likeUser =
     }
   };
 
+  export const searchAllRequestedUsers = (searchInterestedUsers,matchModel, userModel,findUserWithId) => async (req, res) => {
+    try {
+      const user = await findUserWithId(req.user.id, userModel);
+      const users = await searchInterestedUsers(req.user.id, userModel,matchModel,user,req.body.searchkey);
+      sendSuccessResponse(res,users)
+    } catch (error) {
+      sendErrorResponse(res,error)
+    }
+  };
+
   
   export const blockUser = (userModel, blockAUser) => async (req, res) => {
     try {
@@ -249,3 +259,24 @@ export const likeUser =
           sendErrorResponse(res,{ message: err})
       }
     }
+
+    export const searchLikedUser=(findlikedUser,userModel)=> async(req,res)=>{
+      try { 
+        let key = req.body.searchkey
+        const searchData= await findlikedUser(req.body.id,key,userModel);
+        console.log(searchData);
+        sendSuccessResponse(res,searchData)
+      } catch (error) {
+        console.log(error);
+        sendErrorResponse(res,{ message: error})
+      }
+    }
+
+    export const searchAllMatchedUsers = (searchMatchedUsers, matchModel, userModel) => async (req, res) => {
+    try {
+      const matches = await searchMatchedUsers(req.user.id, matchModel, userModel,req.body.searchkey);
+      sendSuccessResponse(res,matches)
+    } catch (error) {
+      sendErrorResponse(res,error,400)
+    }
+  };

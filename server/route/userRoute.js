@@ -23,7 +23,10 @@ import {
   blockUser,
   verifyPayment,
   readnotification,
-  getInterestNotification
+  getInterestNotification,
+  searchLikedUser,
+  searchAllRequestedUsers,
+  searchAllMatchedUsers
 } from "../controller/userController.js";
 
 import {
@@ -42,7 +45,10 @@ import {
     blockAUser,
     verifySubscription,
     showMatchNotification,
-    readMatchNotification
+    readMatchNotification,
+    findLikedUser,
+    findRequestedUsers,
+    searchMatchedUsers
 } from '../interactors/UserInteractor.js'
 
 import{
@@ -146,5 +152,11 @@ userRoute.post("/paymentVerified", verifyPayment(verifySubscription, userModel))
 userRoute.post("/readNotification", readnotification(readMatchNotification,matchModel,userModel,findUserWithId));
 
 userRoute.post("/getNotification", getInterestNotification(showMatchNotification,matchModel,userModel,findUserWithId));
+
+userRoute.post('/searchLikedUser',searchLikedUser(findLikedUser,userModel));
+
+userRoute.post("/searchRequestedUser", searchAllRequestedUsers(findRequestedUsers,matchModel, userModel,findUserWithId)); 
+
+userRoute.post("/searchMatchedUser", searchAllMatchedUsers(searchMatchedUsers, matchModel, userModel));
 
 export default userRoute

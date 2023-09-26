@@ -3,12 +3,14 @@ import chatModel from "../domain/model/chatModel.js";
 import matchModel from "../domain/model/matchesModel.js";
 import { addNewMsg, getLatestMessage } from "../interactors/ChatInteractor.js";
 import { isUserMatched } from "../interactors/MatchesInteractor.js";
+import {config} from 'dotenv'
+config()
 
-
+let socket= process.env.SOCKET_URL;
 
 const io = new Server({
   cors: {
-    origin: ["http://localhost:5173"] ,
+    origin: ["http://localhost:5173",socket] ,
   },
   pingTimeout: 60000,
 });
