@@ -32,7 +32,7 @@ export const verifyOtp =
           sendSuccessResponse(res,{
             success: true,
             newUser: true,
-            redirect: "/createAccount",
+            redirect: "/mobile",
           })
         } else {
           const token = await createJwtToken(user, createUserToken);

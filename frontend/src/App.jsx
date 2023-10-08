@@ -5,14 +5,12 @@ import UserPublicRoute from './routes/UserPublicRoute';
 import Loader from './routes/Loader';
 import LandingPage from './pages/LandingPage/LandingPage';
 import UserPrivateRoute from './routes/UserPrivateRoute';
-
 import { socket } from './Socket';
 import { SetOnlineUserData } from './features/users/OnlineUsers';
 import { useDispatch, useSelector } from 'react-redux';
 
 
 // admin section
-
 
 
 
@@ -47,6 +45,7 @@ function App() {
   const [loader, setLoader] = useState(true);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (user) {
       socket.connect();

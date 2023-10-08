@@ -19,9 +19,8 @@ export const verifyUserToken = (token,req) => {
   const verified = jwt.verify(token, process.env.SECRET_KEY_USER);
   if (verified) {
    req.user = verified;
-return true
+  return true
   } else {
     throw new Error("invalid Token");
   }
 };
-          
