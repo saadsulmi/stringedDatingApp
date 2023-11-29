@@ -192,7 +192,6 @@ function FirstData({
                     email: e.target.value,
                   }))
                 }
-                disabled={userData.email?'disable':''}
               />
               {error.email && (
                 <Typography sx={{ color: "red" }}>{error.email}</Typography>
@@ -205,7 +204,7 @@ function FirstData({
                 variant="outlined"
                 value={userData.phone}
                 fullWidth
-                disabled={userData.phone?'disable':''}
+                
               />
               {error.phone && (
                 <Typography sx={{ color: "red" }}>{error.phone}</Typography>
